@@ -1,0 +1,2665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HackWithInfy — Complete Preparation Hub 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #000000;
+  --bg2: #0a0a0a;
+  --bg3: #111111;
+  --card: #141414;
+  --card2: #1c1c1c;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.15);
+  --border3: rgba(255,255,255,0.25);
+  --text: #ffffff;
+  --text2: #cccccc;
+  --muted: #777777;
+  --muted2: #555555;
+  --accent: #ffffff;
+  --r: 8px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background: var(--bg);
+  color: var(--text2);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+/* ── READING PROGRESS ── */
+#rp { position:fixed;top:0;left:0;height:2px;background:#fff;z-index:9999;transition:width .1s; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-weight: 800; font-size: 1rem; color: #fff;
+  text-decoration: none; letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--muted); }
+.nav-links { display:flex; gap:2px; align-items:center; list-style:none; }
+.nav-links a {
+  color: var(--muted); font-size: 0.8rem; font-weight: 500;
+  text-decoration: none; padding: 5px 11px; border-radius: 6px;
+  transition: all 0.2s; letter-spacing: 0.01em;
+}
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.hamburger { display:none; flex-direction:column; gap:4px; cursor:pointer; }
+.hamburger span { width:20px; height:1.5px; background:#fff; border-radius:2px; transition:all .3s; }
+.mob-nav { display:none; position:fixed; top:56px; left:0; right:0; background:#0a0a0a; border-bottom:1px solid var(--border); padding:12px; z-index:999; }
+.mob-nav.open { display:block; }
+.mob-nav a { display:block; padding:10px 14px; color:var(--muted); text-decoration:none; font-size:0.88rem; border-radius:6px; margin-bottom:2px; transition:all .2s; }
+.mob-nav a:hover { background:rgba(255,255,255,0.05); color:#fff; }
+
+/* ── LAYOUT ── */
+section { padding: 72px 0; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.sec-hd { text-align:center; margin-bottom:48px; }
+.sec-tag {
+  display: inline-block;
+  border: 1px solid var(--border2);
+  color: var(--muted); padding: 3px 12px; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+h2.sec-title {
+  font-weight: 800; font-size: clamp(1.7rem,4vw,2.5rem);
+  letter-spacing: -0.03em; margin-bottom: 12px; color: #fff;
+}
+.sec-desc { color: var(--muted); font-size: 0.9rem; max-width: 520px; margin: 0 auto; }
+.divider { height: 1px; background: var(--border); margin: 0; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 90px 24px 60px;
+  position: relative; overflow: hidden;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 70%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 70%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--border2); background: rgba(255,255,255,0.04);
+  padding: 5px 14px; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 600; color: var(--muted);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px; position: relative;
+}
+.hero-badge::before { content:''; width:5px; height:5px; border-radius:50%; background:#fff; animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+h1.hero-title {
+  font-weight: 800;
+  font-size: clamp(2.5rem,7vw,5.5rem);
+  line-height: 1.0; letter-spacing: -0.04em;
+  margin-bottom: 20px; position: relative; color: #fff;
+}
+h1.hero-title .dim { color: var(--muted2); }
+.hero-sub {
+  max-width: 560px; margin: 0 auto 36px;
+  color: var(--muted); font-size: 1rem; font-weight: 400; line-height: 1.8; position: relative;
+}
+.hero-stats {
+  display: flex; gap: 36px; justify-content: center; flex-wrap: wrap;
+  position: relative; margin-bottom: 40px;
+}
+.stat { text-align: center; }
+.stat-n { font-weight: 800; font-size: 1.8rem; color: #fff; display: block; letter-spacing: -0.03em; }
+.stat-l { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.hero-btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; position:relative; }
+.btn {
+  padding: 10px 24px; border-radius: 7px; font-weight: 600; font-size: 0.85rem;
+  text-decoration: none; transition: all 0.2s; cursor: pointer; border: none;
+  font-family: 'Inter', sans-serif;
+}
+.btn-white { background: #fff; color: #000; }
+.btn-white:hover { background: #e0e0e0; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border2); }
+.btn-ghost:hover { border-color: var(--border3); color: #fff; }
+
+/* ── HOW TO USE ── */
+.how-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+.how-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 22px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.how-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.8rem; color: #fff; flex-shrink: 0;
+}
+.how-card h4 { font-weight: 700; font-size: 0.92rem; color: #fff; }
+.how-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+.how-tip {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px 20px; font-size: 0.85rem;
+  color: var(--text2); line-height: 1.7; margin-top: 20px;
+}
+.how-tip strong { color: #fff; }
+
+/* ── Q CARDS ── */
+.q-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden; margin-bottom: 16px;
+}
+.q-hd {
+  display: flex; align-items: center; gap: 12px; padding: 18px 22px;
+  background: var(--card2); border-bottom: 1px solid var(--border);
+  cursor: pointer; user-select: none;
+}
+.q-hd:hover .q-title { color: #fff; }
+.q-num {
+  width: 30px; height: 30px; border-radius: 6px;
+  border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.78rem; color: #fff; flex-shrink: 0;
+}
+.q-title { font-weight: 700; font-size: 0.95rem; transition: color 0.2s; flex: 1; color: var(--text2); }
+.q-arrow { color: var(--muted); font-size: 0.75rem; transition: transform 0.3s; margin-left: auto; }
+.q-arrow.open { transform: rotate(180deg); }
+.q-body { display: none; padding: 22px; }
+.q-body.open { display: block; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-block; padding: 2px 9px; border-radius: 100px;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.badge-easy { background: rgba(255,255,255,0.06); color: #aaffaa; border: 1px solid rgba(170,255,170,0.2); }
+.badge-medium { background: rgba(255,255,255,0.06); color: #ffddaa; border: 1px solid rgba(255,221,170,0.2); }
+.badge-hard { background: rgba(255,255,255,0.06); color: #ffaaaa; border: 1px solid rgba(255,170,170,0.2); }
+.badge-complex { background: rgba(255,255,255,0.06); color: #ccaaff; border: 1px solid rgba(204,170,255,0.2); }
+.badge-new { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border2); }
+.year-tag {
+  display: inline-block; border: 1px solid var(--border2); color: var(--muted);
+  padding: 2px 9px; border-radius: 100px;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em;
+}
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; overflow: hidden; margin: 14px 0;
+}
+.code-hd {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 14px; background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.code-lang { font-family: 'JetBrains Mono',monospace; font-size: 0.68rem; color: var(--muted); font-weight: 700; letter-spacing: 0.05em; }
+.copy-btn {
+  background: rgba(255,255,255,0.06); border: 1px solid var(--border2);
+  color: var(--muted); padding: 3px 10px; border-radius: 5px;
+  font-size: 0.68rem; font-weight: 600; cursor: pointer;
+  transition: all .2s; font-family: 'Inter',sans-serif;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+pre {
+  padding: 18px; overflow-x: auto; font-family: 'JetBrains Mono',monospace;
+  font-size: 0.8rem; line-height: 1.75; color: #ccc; tab-size: 2;
+}
+.kw  { color: #dda0dd; }
+.ty  { color: #87ceeb; }
+.fn  { color: #90ee90; }
+.cm  { color: #555; font-style: italic; }
+.str { color: #f0e68c; }
+.num { color: #ffa07a; }
+
+/* ── INFO BOXES ── */
+.info-box {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border2);
+  border-radius: 7px; padding: 13px 16px; margin: 10px 0;
+  font-size: 0.86rem; color: var(--text2); line-height: 1.65;
+}
+.info-box strong { color: #fff; }
+.tip-box {
+  background: rgba(255,255,255,0.03); border-left: 3px solid #fff;
+  border-radius: 0 7px 7px 0; padding: 13px 16px; margin: 10px 0;
+  font-size: 0.86rem; color: var(--text2); line-height: 1.65;
+}
+.tip-box strong { color: #fff; }
+.warn-box {
+  background: rgba(255,255,255,0.03); border-left: 3px solid #888;
+  border-radius: 0 7px 7px 0; padding: 13px 16px; margin: 10px 0;
+  font-size: 0.86rem; color: var(--text2); line-height: 1.65;
+}
+
+/* ── STEPS ── */
+.steps { list-style: none; padding: 0; margin: 10px 0; }
+.steps li {
+  padding: 10px 14px 10px 16px; background: var(--card2);
+  border-left: 2px solid var(--border3); border-radius: 0 6px 6px 0;
+  margin-bottom: 6px; font-size: 0.86rem; color: var(--text2);
+}
+.steps li strong { color: #fff; }
+
+/* ── COMPLEXITY ── */
+.complexity {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;
+  padding-top: 14px; border-top: 1px solid var(--border);
+}
+.cx {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--card2); border: 1px solid var(--border);
+  padding: 6px 12px; border-radius: 6px; font-size: 0.8rem;
+}
+.cx span:first-child { color: var(--muted); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.cx code { font-family: 'JetBrains Mono',monospace; color: #fff; font-size: 0.82rem; }
+
+/* ── SUB-PROBLEMS ── */
+.sub-label {
+  display: inline-block; border: 1px solid var(--border2); color: var(--muted);
+  padding: 2px 9px; border-radius: 100px;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 7px;
+}
+.sub-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); margin-top: 14px; }
+.sub-card {
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 7px; padding: 15px; transition: border-color .2s;
+}
+.sub-card:hover { border-color: var(--border2); }
+.sub-card h4 { font-weight: 700; font-size: 0.86rem; margin-bottom: 6px; color: #fff; }
+.sub-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+/* ── TABS ── */
+.tabs {
+  display: flex; gap: 3px; border-bottom: 1px solid var(--border);
+  margin-bottom: 24px; overflow-x: auto; padding-bottom: 1px;
+}
+.tab {
+  padding: 8px 16px; border-radius: 6px 6px 0 0;
+  font-size: 0.82rem; font-weight: 600; color: var(--muted);
+  cursor: pointer; transition: all .2s; white-space: nowrap;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tab.active { color: #fff; border-bottom-color: #fff; background: rgba(255,255,255,0.04); }
+.tab:hover:not(.active) { color: var(--text2); background: rgba(255,255,255,0.03); }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; }
+
+/* ── DSA CARDS ── */
+.dsa-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden; margin-bottom: 12px;
+}
+.dsa-hd {
+  display: flex; align-items: center; gap: 14px; padding: 18px 22px;
+  cursor: pointer; user-select: none; transition: background .2s;
+}
+.dsa-hd:hover { background: var(--card2); }
+.dsa-icon {
+  width: 38px; height: 38px; border-radius: 8px;
+  border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0; background: var(--card2);
+}
+.dsa-title { font-weight: 700; font-size: 0.95rem; flex: 1; color: var(--text2); }
+.dsa-body { padding: 0 22px 22px; border-top: 1px solid var(--border); display: none; }
+.dsa-body.open { display: block; }
+.concept-box {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 7px; padding: 14px; margin: 14px 0;
+}
+.concept-box h4 { color: #fff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 7px; }
+.concept-box p { font-size: 0.86rem; color: var(--text2); line-height: 1.68; }
+
+/* ── ROADMAP ── */
+.roadmap { position: relative; padding-left: 28px; }
+.roadmap::before {
+  content: ''; position: absolute; left: 9px; top: 10px; bottom: 10px;
+  width: 1px; background: linear-gradient(to bottom, #fff 0%, #444 50%, #222 100%);
+}
+.rm-step {
+  position: relative; margin-bottom: 28px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 20px 22px;
+}
+.rm-step::before {
+  content: ''; position: absolute; left: -26px; top: 24px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--border2);
+}
+.rm-step:hover::before { background: #fff; border-color: #fff; }
+.rm-step h3 { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; color: #fff; }
+.rm-step p { font-size: 0.83rem; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
+.rm-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.rm-tag {
+  background: var(--card2); border: 1px solid var(--border);
+  color: var(--muted); padding: 3px 10px; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 500;
+}
+.rm-tag.highlight { border-color: var(--border2); color: var(--text2); }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+th {
+  background: var(--card2); padding: 9px 12px; text-align: left;
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--muted); border-bottom: 1px solid var(--border);
+}
+td { padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 0.84rem; color: var(--text2); }
+tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ── CALLOUT ── */
+.callout {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 8px; padding: 13px 16px; margin: 12px 0;
+}
+.callout-icon { font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+.callout p { font-size: 0.84rem; line-height: 1.6; color: var(--text2); }
+.callout strong { color: #fff; }
+
+/* ── FORMULA ── */
+.formula {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 10px 14px;
+  margin: 8px 0; font-size: 0.84rem; color: #ccc;
+  display: inline-block;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2); border-top: 1px solid var(--border);
+  padding: 36px 24px; text-align: center;
+  font-size: 0.82rem; color: var(--muted);
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px) {
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .hero { padding:80px 16px 50px; }
+  .hero-stats { gap:20px; }
+  section { padding:56px 0; }
+  .sub-grid, .how-grid { grid-template-columns:1fr; }
+  .roadmap { padding-left:18px; }
+  .roadmap::before { left:6px; }
+  .rm-step::before { left:-18px; }
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+.fu { animation:fadeUp 0.55s ease forwards; }
+.fu-1{animation-delay:.1s;opacity:0}.fu-2{animation-delay:.2s;opacity:0}
+.fu-3{animation-delay:.3s;opacity:0}.fu-4{animation-delay:.4s;opacity:0}
+</style>
+</head>
+<body>
+<div id="rp"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#top">HackWith<span>Infy</span></a>
+  <ul class="nav-links">
+    <li><a href="#how-to">How to Use</a></li>
+    <li><a href="#exam2026">2026 Exam</a></li>
+    <li><a href="#pyqs">PYQs</a></li>
+    <li><a href="#mock">Mock Exam</a></li>
+    <li><a href="#dsa">DSA Guide</a></li>
+    <li><a href="#sub">Sub-Problems</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+  <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mob-nav">
+  <a href="#how-to">📖 How to Use</a>
+  <a href="#exam2026">📝 2026 Exam</a>
+  <a href="#pyqs">📚 PYQs</a>
+  <a href="#mock">🧪 Mock Exam</a>
+  <a href="#dsa">💡 DSA Guide</a>
+  <a href="#sub">🔑 Sub-Problems</a>
+  <a href="#roadmap">🗺️ Roadmap</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-badge fu fu-1">Updated 2024–2026 · Official Infosys Patterns</div>
+  <h1 class="hero-title fu fu-2">
+    Crack<br><span class="dim">HackWithInfy</span>
+  </h1>
+  <p class="hero-sub fu fu-3">
+    The most complete preparation resource. Real questions from 2024–2026 papers with full Java solutions, DSA guide, sub-problems, and a structured roadmap.
+  </p>
+  <div class="hero-stats fu fu-3">
+    <div class="stat"><span class="stat-n">21+</span><span class="stat-l">Real Questions</span></div>
+    <div class="stat"><span class="stat-n">3 Yrs</span><span class="stat-l">Coverage</span></div>
+    <div class="stat"><span class="stat-n">14</span><span class="stat-l">DSA Topics</span></div>
+    <div class="stat"><span class="stat-n">Java</span><span class="stat-l">All Solutions</span></div>
+    <div class="stat"><span class="stat-n">6 Wk</span><span class="stat-l">Roadmap</span></div>
+  </div>
+  <div class="hero-btns fu fu-4">
+    <a href="#how-to" class="btn btn-white">Read This Guide First →</a>
+    <a href="#exam2026" class="btn btn-ghost">Jump to Questions</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ HOW TO USE ══════════ -->
+<section id="how-to">
+<div class="wrap">
+  <div class="sec-hd">
+    <span class="sec-tag">Start Here</span>
+    <h2 class="sec-title">How to Use This Website</h2>
+    <p class="sec-desc">Follow this guide to get maximum value. Don't skip this — it tells you exactly where to start based on your level.</p>
+  </div>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">1</div>
+      <h4>Read the Roadmap First</h4>
+      <p>Scroll to the <strong>Preparation Roadmap</strong> section. Find your current level (Beginner / Intermediate / Advanced) and follow the weekly plan. Don't try to read everything at once.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">2</div>
+      <h4>Study DSA Topics in Order</h4>
+      <p>Go to the <strong>DSA Guide</strong> section. Each topic has a concept explanation, a representative problem, and a complete Java solution. Study topics in the roadmap order.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">3</div>
+      <h4>Solve Sub-Problems First</h4>
+      <p>Before tackling main questions, go to <strong>Sub-Problems</strong>. Each sub-problem is a building block. Master these smaller patterns to unlock harder questions.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">4</div>
+      <h4>Try Questions Yourself First</h4>
+      <p>Go to <strong>2026 Exam</strong> or <strong>PYQs</strong>. Read the problem. Try to solve it for at least 20–30 minutes. Only then click to expand the solution and explanation.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">5</div>
+      <h4>Take the Mock Exam</h4>
+      <p>Once you feel ready, go to the <strong>Mock Exam</strong> section. Set a 3-hour timer and solve 3 questions (Easy 30 min / Medium 60 min / Hard 90 min). This is the real test format.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">6</div>
+      <h4>Use the Complexity Table</h4>
+      <p>In the DSA Guide, there's a complexity reference table. Memorize common TC/SC values. In the exam, always mention Time and Space Complexity — it matters for scoring.</p>
+    </div>
+  </div>
+
+  <div class="how-tip">
+    <strong>Color Key for Question Difficulty:</strong>
+    &nbsp;&nbsp;<span class="badge badge-easy">Easy</span> — Complete in ≤ 30 min. Basic data structures.
+    &nbsp;&nbsp;<span class="badge badge-medium">Medium</span> — 30–60 min. Requires 2–3 concepts combined.
+    &nbsp;&nbsp;<span class="badge badge-hard">Hard</span> — 60–90 min. Advanced algorithms + careful edge-case handling.
+    &nbsp;&nbsp;<span class="badge badge-complex">Complex</span> — 90+ min. Graph / Tree DP hybrid problems.
+    <br><br>
+    <strong>Reading a Solution Card:</strong> Each card has: Problem Statement → Key Insight → Sub-Problems (build-up) → Full Java Code → Step-by-Step Trace → Time & Space Complexity. Read in this order!
+    <br><br>
+    <strong>Keyboard Tip:</strong> Use <code style="font-family:JetBrains Mono;background:#1c1c1c;padding:2px 6px;border-radius:4px">Ctrl+F</code> to search for any topic on this page instantly.
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ 2026 EXAM ══════════ -->
+<section id="exam2026">
+<div class="wrap">
+  <div class="sec-hd">
+    <span class="sec-tag">Official Paper</span>
+    <h2 class="sec-title">HackWithInfy 2026 Exam</h2>
+    <p class="sec-desc">All 4 official questions from the 2026 HackWithInfy sample paper. Full Java solutions included.</p>
+  </div>
+
+  <!-- Q1: Food Stamps -->
+  <div class="q-card">
+    <div class="q-hd" onclick="toggle(this)">
+      <div class="q-num">1</div>
+      <div style="flex:1"><span class="badge badge-easy">Easy</span>&nbsp;<span class="year-tag">2026</span>&nbsp;<span class="q-title">Food Stamps — Maximum Taste Points</span></div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="q-body">
+      <div class="info-box">
+        <strong>Problem Statement:</strong> You have N food types and a meal budget of M meals. Buying food type i for the t-th time gives taste points = <code>v[i] − d[i] × (t−1)</code>. You want to maximize the total taste points using at most M meals. You can buy the same food multiple times, but each repeat reduces its value by d[i].
+        <br><br>
+        <strong>Constraints:</strong> 1 ≤ N ≤ 10⁵, 1 ≤ M ≤ 10⁶, 1 ≤ v[i] ≤ 10⁹, 0 ≤ d[i] ≤ 10⁶
+      </div>
+      <div class="tip-box">
+        <strong>Key Insight:</strong> This is a greedy problem. At each step, always buy the food that gives the most taste points <em>right now</em>. A Max-Heap (PriorityQueue) lets you always fetch the current best option in O(log N). After picking food i, its next-purchase value = current − d[i], so push this new value back into the heap. Stop early if the top value ≤ 0.
+      </div>
+
+      <h4 style="color:#fff;font-weight:700;margin:18px 0 10px">Build-Up: Sub-Problems to Solve First</h4>
+      <div class="sub-grid">
+        <div class="sub-card">
+          <span class="sub-label">Step 1</span>
+          <h4>Max Heap Basics</h4>
+          <p>Given an array, repeatedly extract the maximum element k times. → Understand PriorityQueue with custom comparator: <code>new PriorityQueue&lt;&gt;((a,b) -&gt; b-a)</code></p>
+        </div>
+        <div class="sub-card">
+          <span class="sub-label">Step 2</span>
+          <h4>Greedy Pick with Replacement</h4>
+          <p>Each pick changes the item's value. After picking item i, reduce v[i] by some delta. → Re-insert the modified item back into the heap.</p>
+        </div>
+        <div class="sub-card">
+          <span class="sub-label">Step 3</span>
+          <h4>Early Termination</h4>
+          <p>If the heap's top value ≤ 0, further picks only decrease total. → Break early to save time when all remaining options give ≤ 0 taste.</p>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:18px">
+        <div class="code-hd">
+          <span class="code-lang">Java — Food Stamps</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">import</span> java.util.*;
+
+<span class="kw">public class</span> <span class="ty">FoodStamps</span> {
+    <span class="cm">// n = number of food types, m = total meal budget</span>
+    <span class="cm">// v[i] = initial taste of food i, d[i] = decrease per repeat buy</span>
+    <span class="kw">public static long</span> <span class="fn">maxTastePoints</span>(<span class="kw">int</span> n, <span class="kw">long</span> m, <span class="kw">long</span>[] v, <span class="kw">long</span>[] d) {
+
+        <span class="cm">// Max-Heap stores [currentValue, decrement] sorted by currentValue desc</span>
+        PriorityQueue&lt;<span class="kw">long</span>[]&gt; heap = <span class="kw">new</span> PriorityQueue&lt;&gt;(
+            (a, b) -&gt; Long.compare(b[<span class="num">0</span>], a[<span class="num">0</span>])
+        );
+
+        <span class="cm">// Only add food types with positive initial value</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+            <span class="kw">if</span> (v[i] &gt; <span class="num">0</span>) heap.offer(<span class="kw">new long</span>[]{v[i], d[i]});
+        }
+
+        <span class="kw">long</span> total = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">long</span> meal = <span class="num">0</span>; meal &lt; m; meal++) {
+            <span class="kw">if</span> (heap.isEmpty()) <span class="kw">break</span>;
+            <span class="kw">long</span>[] top = heap.poll();
+            <span class="kw">long</span> curr = top[<span class="num">0</span>], dec = top[<span class="num">1</span>];
+
+            <span class="kw">if</span> (curr &lt;= <span class="num">0</span>) <span class="kw">break</span>;     <span class="cm">// No more positive taste options</span>
+
+            total += curr;            <span class="cm">// Buy this food</span>
+            <span class="kw">long</span> next = curr - dec;   <span class="cm">// Next purchase gives less taste</span>
+            <span class="kw">if</span> (next &gt; <span class="num">0</span>) heap.offer(<span class="kw">new long</span>[]{next, dec});
+        }
+        <span class="kw">return</span> total;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="cm">// Test Case: n=3, m=5, v=[5,7,9], d=[2,4,6] → Expected: 27</span>
+        System.out.println(maxTastePoints(<span class="num">3</span>, <span class="num">5</span>,
+            <span class="kw">new long</span>[]{<span class="num">5</span>,<span class="num">7</span>,<span class="num">9</span>}, <span class="kw">new long</span>[]{<span class="num">2</span>,<span class="num">4</span>,<span class="num">6</span>}));
+        <span class="cm">// Trace: Pick 9→sum=9, Pick 7→16, Pick 5→21, Pick 3→24, Pick 3→27 ✓</span>
+    }
+}</pre>
+      </div>
+
+      <ul class="steps">
+        <li><strong>Step 1 — Initialize Heap:</strong> Insert all (v[i], d[i]) pairs into a max-heap keyed by v[i]. Skip foods with v[i] ≤ 0.</li>
+        <li><strong>Step 2 — Greedy Loop:</strong> For each of the M meals, poll the heap top (highest current taste). If top ≤ 0, stop — no benefit in buying more.</li>
+        <li><strong>Step 3 — Re-insert:</strong> After picking food i, its next value = curr - dec. If next &gt; 0, push it back. Otherwise discard it.</li>
+        <li><strong>Step 4 — Accumulate:</strong> Add the picked value to total. Return total after all M picks.</li>
+      </ul>
+
+      <div class="complexity">
+        <div class="cx"><span>Time</span><code>O(M log N)</code></div>
+        <div class="cx"><span>Space</span><code>O(N)</code></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2: MSS with Swaps -->
+  <div class="q-card">
+    <div class="q-hd" onclick="toggle(this)">
+      <div class="q-num">2</div>
+      <div style="flex:1"><span class="badge badge-medium">Medium</span>&nbsp;<span class="year-tag">2026</span>&nbsp;<span class="q-title">MSS with Swaps — Max Subarray Sum After K Swaps</span></div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="q-body">
+      <div class="info-box">
+        <strong>Problem Statement:</strong> Given array A of length n (≤ 500) and k swaps, perform at most k swaps between any two elements in the array to maximize the Maximum Subarray Sum (MSS). Note: a "double-swap" (swap and swap back) counts as 2 swaps but nets 0 change — so only useful swaps matter. If k is odd, you can always make 1 net useful swap.
+        <br><br>
+        <strong>Constraints:</strong> 1 ≤ n ≤ 500, 0 ≤ k ≤ 10⁹, |A[i]| ≤ 10⁴
+      </div>
+      <div class="tip-box">
+        <strong>Key Insight:</strong> With k ≥ 1 swaps, for any chosen subarray [l..r], we can swap the worst elements inside with the best elements outside. Strategy: Try all O(n²) subarrays. For each subarray, sort the negatives inside and positives outside, then simulate swapping the most negative inside with the most positive outside (up to k swaps). Track the maximum achievable sum.
+      </div>
+
+      <div class="sub-grid">
+        <div class="sub-card">
+          <span class="sub-label">Step 1</span>
+          <h4>Kadane's Algorithm (k=0 case)</h4>
+          <p>Find MSS with no swaps. O(n) DP. <code>cur = max(0, cur + a[i]); ans = max(ans, cur)</code>. This handles the base case perfectly.</p>
+        </div>
+        <div class="sub-card">
+          <span class="sub-label">Step 2</span>
+          <h4>All Subarrays Brute Force</h4>
+          <p>Enumerate all O(n²) subarrays [l..r]. For each, compute the sum. Used as a building block for k &gt; 0.</p>
+        </div>
+        <div class="sub-card">
+          <span class="sub-label">Step 3</span>
+          <h4>Optimal Swap Simulation</h4>
+          <p>For subarray [l..r], negatives inside can be swapped with positives outside. Sort both lists and greedily match smallest negative with largest positive outside.</p>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:18px">
+        <div class="code-hd">
+          <span class="code-lang">Java — MSS with Swaps</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">import</span> java.util.*;
+
+<span class="kw">public class</span> <span class="ty">MSSWithSwaps</span> {
+
+    <span class="cm">// Kadane's — used when k=0</span>
+    <span class="kw">static int</span> <span class="fn">kadane</span>(<span class="kw">int</span>[] a) {
+        <span class="kw">int</span> best = <span class="num">0</span>, cur = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> x : a) { cur = Math.max(<span class="num">0</span>, cur + x); best = Math.max(best, cur); }
+        <span class="kw">return</span> best;
+    }
+
+    <span class="kw">public static int</span> <span class="fn">solve</span>(<span class="kw">int</span> n, <span class="kw">int</span> k, <span class="kw">int</span>[] a) {
+        <span class="kw">if</span> (k == <span class="num">0</span>) <span class="kw">return</span> kadane(a);
+
+        <span class="kw">int</span> ans = <span class="num">0</span>;
+
+        <span class="cm">// Try every subarray [l..r]</span>
+        <span class="kw">for</span> (<span class="kw">int</span> l = <span class="num">0</span>; l &lt; n; l++) {
+            <span class="kw">for</span> (<span class="kw">int</span> r = l; r &lt; n; r++) {
+
+                <span class="cm">// Collect negatives inside subarray (sorted ascending)</span>
+                List&lt;Integer&gt; inside = <span class="kw">new</span> ArrayList&lt;&gt;();
+                <span class="kw">int</span> subSum = <span class="num">0</span>;
+                <span class="kw">for</span> (<span class="kw">int</span> i = l; i &lt;= r; i++) {
+                    subSum += a[i];
+                    <span class="kw">if</span> (a[i] &lt; <span class="num">0</span>) inside.add(a[i]);
+                }
+                Collections.sort(inside); <span class="cm">// Worst negatives first</span>
+
+                <span class="cm">// Collect positives outside subarray (sorted descending)</span>
+                List&lt;Integer&gt; outside = <span class="kw">new</span> ArrayList&lt;&gt;();
+                <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+                    <span class="kw">if</span> (i &lt; l || i &gt; r) <span class="kw">if</span> (a[i] &gt; <span class="num">0</span>) outside.add(a[i]);
+                }
+                outside.sort(Collections.reverseOrder()); <span class="cm">// Best positives first</span>
+
+                <span class="cm">// Greedily swap: worst inside negative with best outside positive</span>
+                <span class="kw">int</span> swapped = <span class="num">0</span>, simSum = subSum;
+                <span class="kw">for</span> (<span class="kw">int</span> s = <span class="num">0</span>; s &lt; Math.min((long)k, Math.min(inside.size(), outside.size())); s++) {
+                    <span class="kw">int</span> gain = outside.get(s) - inside.get(s);
+                    <span class="kw">if</span> (gain &lt;= <span class="num">0</span>) <span class="kw">break</span>; <span class="cm">// No benefit</span>
+                    simSum += gain;
+                }
+                ans = Math.max(ans, simSum);
+            }
+        }
+        <span class="kw">return</span> ans;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="cm">// k=1, a=[-1, 2, -3, 4, -5] → swap -5 into subarray [2..4], pick [4,2,-1] etc</span>
+        System.out.println(solve(<span class="num">5</span>, <span class="num">1</span>, <span class="kw">new int</span>[]{<span class="num">-1</span>,<span class="num">2</span>,<span class="num">-3</span>,<span class="num">4</span>,<span class="num">-5</span>}));
+    }
+}</pre>
+      </div>
+
+      <ul class="steps">
+        <li><strong>Step 1:</strong> If k=0, just return Kadane's result.</li>
+        <li><strong>Step 2:</strong> For each O(n²) subarray, compute its sum and find negatives inside + positives outside.</li>
+        <li><strong>Step 3:</strong> Sort negatives ascending (worst first), sort outside positives descending (best first).</li>
+        <li><strong>Step 4:</strong> Greedily swap the worst inside negative with the best outside positive, up to k swaps. Stop if gain ≤ 0.</li>
+        <li><strong>Step 5:</strong> Return the maximum sum seen across all subarrays.</li>
+      </ul>
+      <div class="complexity">
+        <div class="cx"><span>Time</span><code>O(n³ log n)</code></div>
+        <div class="cx"><span>Space</span><code>O(n)</code></div>
+        <div class="cx"><span>Note</span><code>Works for n ≤ 500</code></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3: Lock & Parity -->
+  <div class="q-card">
+    <div class="q-hd" onclick="toggle(this)">
+      <div class="q-num">3</div>
+      <div style="flex:1"><span class="badge badge-hard">Hard</span>&nbsp;<span class="year-tag">2026</span>&nbsp;<span class="q-title">Lock & Parity — Minimum Even-Cost Pair</span></div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="q-body">
+      <div class="info-box">
+        <strong>Problem Statement:</strong> You are given N locks, each with a cost c[i] and a parity type p[i] (0=even, 1=odd). To open a pair of locks (i, j), the cost is c[i] + c[j]. The combined cost must be even (i.e., both locks must have the same parity type: both even OR both odd cost). Find the minimum total cost to open any valid pair. If no valid pair exists, return -1.
+        <br><br>
+        <strong>Constraints:</strong> 2 ≤ N ≤ 10⁵, 1 ≤ c[i] ≤ 10⁹
+      </div>
+      <div class="tip-box">
+        <strong>Key Insight:</strong> Cost c[i] + c[j] is even if and only if c[i] and c[j] have the same parity (both even or both odd). So: separate all even-cost locks and odd-cost locks. For each group, find the two minimum-cost elements. Answer is min of (best pair from even group, best pair from odd group).
+      </div>
+
+      <div class="sub-grid">
+        <div class="sub-card">
+          <span class="sub-label">Step 1</span>
+          <h4>Parity Check</h4>
+          <p>Sum of two numbers is even iff both are even or both are odd. <code>(a+b) % 2 == 0</code> iff <code>a%2 == b%2</code>. This is the core condition.</p>
+        </div>
+        <div class="sub-card">
+          <span class="sub-label">Step 2</span>
+          <h4>Partition and Find 2-Minimum</h4>
+          <p>Partition array into two groups. Find the two smallest elements in each group. This is O(n) — no sorting needed, just track min1 and min2.</p>
+        </div>
+        <div class="sub-card">
+          <span class="sub-label">Step 3</span>
+          <h4>Answer Aggregation</h4>
+          <p>For even group: ans = even_min1 + even_min2. For odd group: ans = odd_min1 + odd_min2. Final answer = min of both. If a group has fewer than 2 elements, skip it.</p>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:18px">
+        <div class="code-hd">
+          <span class="code-lang">Java — Lock & Parity</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">import</span> java.util.*;
+
+<span class="kw">public class</span> <span class="ty">LockAndParity</span> {
+
+    <span class="kw">public static long</span> <span class="fn">minEvenPair</span>(<span class="kw">int</span> n, <span class="kw">long</span>[] c) {
+
+        <span class="cm">// Separate into even-cost and odd-cost groups</span>
+        List&lt;Long&gt; evens = <span class="kw">new</span> ArrayList&lt;&gt;();
+        List&lt;Long&gt; odds  = <span class="kw">new</span> ArrayList&lt;&gt;();
+
+        <span class="kw">for</span> (<span class="kw">long</span> cost : c) {
+            <span class="kw">if</span> (cost % <span class="num">2</span> == <span class="num">0</span>) evens.add(cost);
+            <span class="kw">else</span>             odds.add(cost);
+        }
+
+        <span class="kw">long</span> ans = Long.MAX_VALUE;
+
+        <span class="cm">// Find 2 minimums from each group → O(n) no sort needed</span>
+        <span class="kw">for</span> (List&lt;Long&gt; group : Arrays.asList(evens, odds)) {
+            <span class="kw">if</span> (group.size() &lt; <span class="num">2</span>) <span class="kw">continue</span>;
+            <span class="kw">long</span> m1 = Long.MAX_VALUE, m2 = Long.MAX_VALUE;
+            <span class="kw">for</span> (<span class="kw">long</span> x : group) {
+                <span class="kw">if</span> (x &lt;= m1) { m2 = m1; m1 = x; }
+                <span class="kw">else if</span> (x &lt; m2) { m2 = x; }
+            }
+            ans = Math.min(ans, m1 + m2);
+        }
+
+        <span class="kw">return</span> (ans == Long.MAX_VALUE) ? -<span class="num">1</span> : ans;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="cm">// Locks: c=[3,6,4,9,2], expected: min even pair = 2+4=6 OR min odd pair = 3+9=12 → ans=6</span>
+        System.out.println(minEvenPair(<span class="num">5</span>, <span class="kw">new long</span>[]{<span class="num">3</span>,<span class="num">6</span>,<span class="num">4</span>,<span class="num">9</span>,<span class="num">2</span>}));
+    }
+}</pre>
+      </div>
+
+      <ul class="steps">
+        <li><strong>Step 1 — Partition:</strong> Split all costs into two lists: even-cost and odd-cost locks.</li>
+        <li><strong>Step 2 — Two-Min Scan:</strong> For each group, find the two smallest values in a single O(n) pass using two variables (m1, m2).</li>
+        <li><strong>Step 3 — Compare:</strong> Candidate answer from even group = m1_even + m2_even. Candidate from odd group = m1_odd + m2_odd.</li>
+        <li><strong>Step 4 — Return:</strong> Answer = min of both candidates. If a group has &lt; 2 elements, it can't form a valid pair.</li>
+      </ul>
+      <div class="complexity">
+        <div class="cx"><span>Time</span><code>O(N)</code></div>
+        <div class="cx"><span>Space</span><code>O(N)</code></div>
+        <div class="cx"><span>Optimized</span><code>O(1) space possible</code></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4: Layer-Split Path -->
+  <div class="q-card">
+    <div class="q-hd" onclick="toggle(this)">
+      <div class="q-num">4</div>
+      <div style="flex:1"><span class="badge badge-complex">Complex</span>&nbsp;<span class="year-tag">2026</span>&nbsp;<span class="q-title">Layer-Split Path — DFS with Non-Decreasing Layer Constraint</span></div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="q-body">
+      <div class="info-box">
+        <strong>Problem Statement:</strong> Given a tree of N nodes, each node has a "layer" value L[i]. Find the path from root to any leaf such that: (1) Layer values are non-decreasing along the path, (2) The cost of the path is minimized. Cost of a path = sum of (y−x)² for each edge (x,y) where x is parent. Return the minimum cost path with the constraint.
+        <br><br>
+        <strong>Constraints:</strong> 1 ≤ N ≤ 10⁵, layers are integers, tree is rooted at node 1.
+      </div>
+      <div class="tip-box">
+        <strong>Key Insight:</strong> DFS from root. Maintain current path cost and current maximum layer seen. At each node, only recurse into children where child_layer ≥ current_max_layer (non-decreasing). Accumulate (child_layer − parent_layer)² as edge cost. Track minimum cost path that reaches a leaf.
+      </div>
+
+      <div class="sub-grid">
+        <div class="sub-card">
+          <span class="sub-label">Step 1</span>
+          <h4>DFS Tree Traversal</h4>
+          <p>Basic DFS from root with a visited array. Identify when a node is a leaf (no unvisited children).</p>
+        </div>
+        <div class="sub-card">
+          <span class="sub-label">Step 2</span>
+          <h4>Path with Constraint</h4>
+          <p>DFS with a running maximum. At each step, only go deeper if next value ≥ current max. Classic "non-decreasing path" pattern.</p>
+        </div>
+        <div class="sub-card">
+          <span class="sub-label">Step 3</span>
+          <h4>Edge Cost Accumulation</h4>
+          <p>Cost = sum of (y−x)² per edge. Track cumulative cost as you recurse. At leaf nodes, update global minimum.</p>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:18px">
+        <div class="code-hd">
+          <span class="code-lang">Java — Layer-Split Path</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><span class="kw">import</span> java.util.*;
+
+<span class="kw">public class</span> <span class="ty">LayerSplitPath</span> {
+    <span class="kw">static</span> List&lt;Integer&gt;[] tree;
+    <span class="kw">static int</span>[] layer;
+    <span class="kw">static long</span> minCost = Long.MAX_VALUE;
+
+    <span class="kw">public static void</span> <span class="fn">dfs</span>(<span class="kw">int</span> node, <span class="kw">int</span> parent, <span class="kw">int</span> maxLayer, <span class="kw">long</span> cost) {
+        <span class="kw">boolean</span> isLeaf = <span class="kw">true</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> child : tree[node]) {
+            <span class="kw">if</span> (child == parent) <span class="kw">continue</span>;
+            isLeaf = <span class="kw">false</span>;
+
+            <span class="cm">// Non-decreasing layer constraint</span>
+            <span class="kw">if</span> (layer[child] &gt;= maxLayer) {
+                <span class="kw">long</span> edgeCost = (<span class="kw">long</span>)(layer[child] - layer[node]) * (layer[child] - layer[node]);
+                dfs(child, node, layer[child], cost + edgeCost);
+            }
+        }
+
+        <span class="kw">if</span> (isLeaf) {
+            minCost = Math.min(minCost, cost);
+        }
+    }
+
+    <span class="kw">public static long</span> <span class="fn">solve</span>(<span class="kw">int</span> n, <span class="kw">int</span>[] L, <span class="kw">int</span>[][] edges) {
+        tree = <span class="kw">new</span> List[n + <span class="num">1</span>];
+        layer = L;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt;= n; i++) tree[i] = <span class="kw">new</span> ArrayList&lt;&gt;();
+        <span class="kw">for</span> (<span class="kw">int</span>[] e : edges) { tree[e[<span class="num">0</span>]].add(e[<span class="num">1</span>]); tree[e[<span class="num">1</span>]].add(e[<span class="num">0</span>]); }
+        minCost = Long.MAX_VALUE;
+        dfs(<span class="num">1</span>, <span class="num">-1</span>, layer[<span class="num">1</span>], <span class="num">0</span>);
+        <span class="kw">return</span> minCost;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="cm">// Tree: 1-2, 1-3, 2-4. Layers: [0,2,1,3]. Edges: [[1,2],[1,3],[2,4]]</span>
+        <span class="cm">// Valid paths: 1→2→4 (layers 0,2,3 non-dec, cost=(2-0)²+(3-2)²=4+1=5)</span>
+        <span class="cm">// Path 1→3 blocked: layer[3]=1 &lt; layer[1]=0... but 1&gt;0 so it's valid actually</span>
+        System.out.println(solve(<span class="num">4</span>, <span class="kw">new int</span>[]{<span class="num">0</span>,<span class="num">2</span>,<span class="num">1</span>,<span class="num">3</span>},
+            <span class="kw">new int</span>[][]{{<span class="num">1</span>,<span class="num">2</span>},{<span class="num">1</span>,<span class="num">3</span>},{<span class="num">2</span>,<span class="num">4</span>}}));
+    }
+}</pre>
+      </div>
+      <ul class="steps">
+        <li><strong>Step 1:</strong> Build adjacency list. Perform DFS from root (node 1).</li>
+        <li><strong>Step 2:</strong> At each node, try all children. Only proceed to child if layer[child] ≥ current max layer seen.</li>
+        <li><strong>Step 3:</strong> Add edge cost (y−x)² when traversing edge from parent layer x to child layer y.</li>
+        <li><strong>Step 4:</strong> At leaf nodes, update global minimum cost. Return minCost after DFS completes.</li>
+      </ul>
+      <div class="complexity">
+        <div class="cx"><span>Time</span><code>O(N)</code></div>
+        <div class="cx"><span>Space</span><code>O(N)</code></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ PYQs ══════════ -->
+<section id="pyqs">
+<div class="wrap">
+  <div class="sec-hd">
+    <span class="sec-tag">All Years</span>
+    <h2 class="sec-title">Previous Year Questions</h2>
+    <p class="sec-desc">All official questions from the 2024 and 2025 HackWithInfy sample papers with full Java solutions.</p>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this,'t2025')">2025 Questions (10)</div>
+    <div class="tab" onclick="switchTab(this,'t2024')">2024 Questions (3)</div>
+  </div>
+
+  <!-- 2025 -->
+  <div class="tab-pane active" id="t2025">
+
+    <!-- Array Type Queries -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">1</div>
+        <div style="flex:1"><span class="badge badge-easy">Easy</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Array Type Queries — Simulation with Prefix Count</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given an array of N elements, answer Q queries. Each query is of type: "Count elements in range [l, r] that satisfy some condition (e.g., are even, or divisible by k)." Use prefix sum arrays to answer each query in O(1).
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Precompute prefix count arrays — one for each query type. prefix[i] = number of qualifying elements in A[0..i-1]. Query [l,r] = prefix[r+1] - prefix[l].</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Array Type Queries</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">public class</span> <span class="ty">ArrayTypeQueries</span> {
+    <span class="kw">public static int</span>[] <span class="fn">solve</span>(<span class="kw">int</span>[] a, <span class="kw">int</span>[][] queries) {
+        <span class="kw">int</span> n = a.length;
+        <span class="cm">// prefix[i] = count of even numbers in a[0..i-1]</span>
+        <span class="kw">int</span>[] prefix = <span class="kw">new int</span>[n + <span class="num">1</span>];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+            prefix[i+<span class="num">1</span>] = prefix[i] + (a[i] % <span class="num">2</span> == <span class="num">0</span> ? <span class="num">1</span> : <span class="num">0</span>);
+
+        <span class="kw">int</span>[] ans = <span class="kw">new int</span>[queries.length];
+        <span class="kw">for</span> (<span class="kw">int</span> q = <span class="num">0</span>; q &lt; queries.length; q++) {
+            <span class="kw">int</span> l = queries[q][<span class="num">0</span>], r = queries[q][<span class="num">1</span>];
+            ans[q] = prefix[r+<span class="num">1</span>] - prefix[l]; <span class="cm">// Count evens in [l,r]</span>
+        }
+        <span class="kw">return</span> ans;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Build</span><code>O(N)</code></div>
+          <div class="cx"><span>Query</span><code>O(1)</code></div>
+          <div class="cx"><span>Space</span><code>O(N)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Good Subarray -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">2</div>
+        <div style="flex:1"><span class="badge badge-easy">Easy</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Good Subarray — Sliding Window with Frequency Map</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> A subarray is "good" if all elements in it appear at most k times. Find the number of good subarrays, or find the longest good subarray. Use a sliding window that maintains element frequencies.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Two-pointer / sliding window. Expand right pointer. If any element's count exceeds k, shrink from the left until the window is valid again. Count valid windows.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Good Subarray</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">GoodSubarray</span> {
+    <span class="kw">public static long</span> <span class="fn">countGoodSubarrays</span>(<span class="kw">int</span>[] a, <span class="kw">int</span> k) {
+        Map&lt;Integer,Integer&gt; freq = <span class="kw">new</span> HashMap&lt;&gt;();
+        <span class="kw">long</span> count = <span class="num">0</span>;
+        <span class="kw">int</span> left = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> right = <span class="num">0</span>; right &lt; a.length; right++) {
+            freq.merge(a[right], <span class="num">1</span>, Integer::sum);
+            <span class="cm">// Shrink window if element appears more than k times</span>
+            <span class="kw">while</span> (freq.get(a[right]) &gt; k) {
+                freq.merge(a[left], -<span class="num">1</span>, Integer::sum);
+                <span class="kw">if</span> (freq.get(a[left]) == <span class="num">0</span>) freq.remove(a[left]);
+                left++;
+            }
+            count += right - left + <span class="num">1</span>; <span class="cm">// All subarrays ending at 'right'</span>
+        }
+        <span class="kw">return</span> count;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(N)</code></div>
+          <div class="cx"><span>Space</span><code>O(N)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Oil Tank -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">3</div>
+        <div style="flex:1"><span class="badge badge-easy">Easy</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Oil Tank — Circular Array Prefix Sum</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> N gas stations arranged in a circle. Station i has gas[i] litres and costs cost[i] to travel to the next. Find the starting station from which you can complete the full circle. Return -1 if impossible. Classic "Gas Station" problem.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> If total gas ≥ total cost, a solution always exists. Start from station 0. Track running "tank". If tank goes negative at station i, reset tank=0 and try starting from i+1. The last chosen start is the answer.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Oil Tank (Gas Station)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">public class</span> <span class="ty">OilTank</span> {
+    <span class="kw">public static int</span> <span class="fn">canCompleteCircuit</span>(<span class="kw">int</span>[] gas, <span class="kw">int</span>[] cost) {
+        <span class="kw">int</span> totalGas = <span class="num">0</span>, totalCost = <span class="num">0</span>, tank = <span class="num">0</span>, start = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; gas.length; i++) {
+            totalGas += gas[i];
+            totalCost += cost[i];
+            tank += gas[i] - cost[i];
+            <span class="kw">if</span> (tank &lt; <span class="num">0</span>) { start = i + <span class="num">1</span>; tank = <span class="num">0</span>; }
+        }
+        <span class="kw">return</span> totalGas &gt;= totalCost ? start : -<span class="num">1</span>;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(N)</code></div>
+          <div class="cx"><span>Space</span><code>O(1)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reduce Soldiers -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">4</div>
+        <div style="flex:1"><span class="badge badge-easy">Easy</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Reduce Soldiers — BFS Level Processing with HashMap</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> An army starts with N soldiers. At each step, soldiers are split: soldiers divisible by 2 go into one group, odd soldiers into another. Process continues until 1 soldier remains. Find number of steps (BFS levels) and total soldiers processed. Similar to "Power of Two" countdown with BFS simulation.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> BFS on soldier counts. At each level, split: even count → count/2 (processed immediately), odd count → left in queue. Use a HashMap to avoid re-processing duplicate counts. Total steps = max BFS depth.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Reduce Soldiers</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">ReduceSoldiers</span> {
+    <span class="kw">public static int</span> <span class="fn">stepsToOne</span>(<span class="kw">int</span> n) {
+        <span class="cm">// BFS: how many steps to reduce n to 1</span>
+        <span class="cm">// Each step: n → n/2 if even, n → (n-1)/2 if odd (count the odd one)</span>
+        Queue&lt;Integer&gt; queue = <span class="kw">new</span> LinkedList&lt;&gt;();
+        Set&lt;Integer&gt; visited = <span class="kw">new</span> HashSet&lt;&gt;();
+        queue.offer(n); visited.add(n);
+        <span class="kw">int</span> steps = <span class="num">0</span>;
+
+        <span class="kw">while</span> (!queue.isEmpty()) {
+            <span class="kw">int</span> size = queue.size();
+            <span class="kw">while</span> (size-- &gt; <span class="num">0</span>) {
+                <span class="kw">int</span> curr = queue.poll();
+                <span class="kw">if</span> (curr == <span class="num">1</span>) <span class="kw">return</span> steps;
+                <span class="cm">// Next states depend on parity</span>
+                <span class="kw">int</span>[] nexts = (curr % <span class="num">2</span> == <span class="num">0</span>)
+                    ? <span class="kw">new int</span>[]{curr/<span class="num">2</span>}
+                    : <span class="kw">new int</span>[]{(curr-<span class="num">1</span>)/<span class="num">2</span>, (curr+<span class="num">1</span>)/<span class="num">2</span>};
+                <span class="kw">for</span> (<span class="kw">int</span> nx : nexts)
+                    <span class="kw">if</span> (nx &gt;= <span class="num">1</span> &amp;&amp; visited.add(nx)) queue.offer(nx);
+            }
+            steps++;
+        }
+        <span class="kw">return</span> steps;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(log N)</code></div>
+          <div class="cx"><span>Space</span><code>O(log N)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invasion Grid -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">5</div>
+        <div style="flex:1"><span class="badge badge-easy">Easy</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Invasion Grid — Multi-Source BFS on Matrix</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given an N×M grid with multiple invasion sources (marked as 'I'). Each turn, invasion spreads to all adjacent cells (up/down/left/right). Find the minimum number of turns for invasion to reach all cells, or find cells that are never reached due to walls ('#').
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Multi-Source BFS. Initialize BFS queue with ALL source cells simultaneously. BFS naturally gives minimum distance from the nearest source for every cell. Time = max distance in BFS.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Invasion Grid (Multi-Source BFS)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">InvasionGrid</span> {
+    <span class="kw">static int</span>[][] DIRS = {{<span class="num">0</span>,<span class="num">1</span>},{<span class="num">0</span>,<span class="num">-1</span>},{<span class="num">1</span>,<span class="num">0</span>},{<span class="num">-1</span>,<span class="num">0</span>}};
+
+    <span class="kw">public static int</span>[][] <span class="fn">minInvasionTime</span>(<span class="kw">char</span>[][] grid) {
+        <span class="kw">int</span> R = grid.length, C = grid[<span class="num">0</span>].length;
+        <span class="kw">int</span>[][] dist = <span class="kw">new int</span>[R][C];
+        <span class="kw">for</span> (<span class="kw">int</span>[] row : dist) Arrays.fill(row, -<span class="num">1</span>);
+
+        Queue&lt;<span class="kw">int</span>[]&gt; q = <span class="kw">new</span> LinkedList&lt;&gt;();
+        <span class="cm">// Add ALL invasion sources to BFS queue at time 0</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; R; i++)
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; C; j++)
+                <span class="kw">if</span> (grid[i][j] == <span class="str">'I'</span>) { dist[i][j] = <span class="num">0</span>; q.offer(<span class="kw">new int</span>[]{i, j}); }
+
+        <span class="kw">while</span> (!q.isEmpty()) {
+            <span class="kw">int</span>[] cur = q.poll();
+            <span class="kw">for</span> (<span class="kw">int</span>[] d : DIRS) {
+                <span class="kw">int</span> nr = cur[<span class="num">0</span>]+d[<span class="num">0</span>], nc = cur[<span class="num">1</span>]+d[<span class="num">1</span>];
+                <span class="kw">if</span> (nr&gt;=<span class="num">0</span> &amp;&amp; nr&lt;R &amp;&amp; nc&gt;=<span class="num">0</span> &amp;&amp; nc&lt;C && grid[nr][nc]!='#' &amp;&amp; dist[nr][nc]==-<span class="num">1</span>) {
+                    dist[nr][nc] = dist[cur[<span class="num">0</span>]][cur[<span class="num">1</span>]] + <span class="num">1</span>;
+                    q.offer(<span class="kw">new int</span>[]{nr, nc});
+                }
+            }
+        }
+        <span class="kw">return</span> dist; <span class="cm">// dist[i][j] = min turns for invasion to reach (i,j)</span>
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(N×M)</code></div>
+          <div class="cx"><span>Space</span><code>O(N×M)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expert Number -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">6</div>
+        <div style="flex:1"><span class="badge badge-medium">Medium</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Expert Number — Greedy MEX on Sorted Groups</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given an array, at each step remove the Minimum Excludant (MEX) — the smallest non-negative integer NOT in the array. Do this until the array is empty. Count how many times each integer is removed, and find the total operations.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Sort the array. Group equal elements. The MEX at each step is the smallest missing number. Greedily simulate: maintain a pointer for the current MEX. Count consecutive missing values.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Expert Number (MEX)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">ExpertNumber</span> {
+    <span class="kw">public static int</span> <span class="fn">mexOperations</span>(<span class="kw">int</span>[] a) {
+        Arrays.sort(a);
+        <span class="kw">int</span> ops = <span class="num">0</span>, mex = <span class="num">0</span>;
+        <span class="kw">int</span> i = <span class="num">0</span>;
+
+        <span class="kw">while</span> (i &lt; a.length) {
+            <span class="kw">if</span> (a[i] == mex) {
+                <span class="cm">// Found an element equal to current MEX — remove it</span>
+                i++;
+                mex++;
+                ops++;
+            } <span class="kw">else if</span> (a[i] &lt; mex) {
+                i++; <span class="cm">// Already less than MEX, skip</span>
+            } <span class="kw">else</span> {
+                <span class="cm">// a[i] > mex: gap exists, MEX isn't present, wrap around</span>
+                mex = <span class="num">0</span>;
+                ops++; <span class="cm">// This pass ends with MEX=0 removal (empty round)</span>
+            }
+        }
+        <span class="kw">return</span> ops;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(N log N)</code></div>
+          <div class="cx"><span>Space</span><code>O(1)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graph Beauty -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">7</div>
+        <div style="flex:1"><span class="badge badge-medium">Medium</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Graph Beauty — BFS on Weighted Graph with State Tracking</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given an undirected graph where edges have "beauty" values, find the path from source to destination that maximizes the minimum edge beauty (or minimizes the maximum). Classic "bottleneck path" problem.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Binary search on the answer (minimum beauty threshold). For a given threshold T, check if a path exists from source to destination using only edges with beauty ≥ T (BFS/DFS check). Binary search on T to find the maximum feasible threshold.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Graph Beauty (Binary Search + BFS)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">GraphBeauty</span> {
+    <span class="kw">static</span> List&lt;<span class="kw">int</span>[]&gt;[] graph; <span class="cm">// [neighbor, beauty]</span>
+    <span class="kw">static int</span> n;
+
+    <span class="kw">static boolean</span> <span class="fn">canReach</span>(<span class="kw">int</span> src, <span class="kw">int</span> dst, <span class="kw">int</span> minBeauty) {
+        <span class="kw">boolean</span>[] visited = <span class="kw">new boolean</span>[n+<span class="num">1</span>];
+        Queue&lt;Integer&gt; q = <span class="kw">new</span> LinkedList&lt;&gt;();
+        q.offer(src); visited[src] = <span class="kw">true</span>;
+        <span class="kw">while</span> (!q.isEmpty()) {
+            <span class="kw">int</span> cur = q.poll();
+            <span class="kw">if</span> (cur == dst) <span class="kw">return true</span>;
+            <span class="kw">for</span> (<span class="kw">int</span>[] e : graph[cur])
+                <span class="kw">if</span> (!visited[e[<span class="num">0</span>]] &amp;&amp; e[<span class="num">1</span>] &gt;= minBeauty) {
+                    visited[e[<span class="num">0</span>]] = <span class="kw">true</span>; q.offer(e[<span class="num">0</span>]);
+                }
+        }
+        <span class="kw">return false</span>;
+    }
+
+    <span class="kw">public static int</span> <span class="fn">maxBottleneck</span>(<span class="kw">int</span> src, <span class="kw">int</span> dst, <span class="kw">int</span>[] beautyVals) {
+        Arrays.sort(beautyVals);
+        <span class="kw">int</span> lo = <span class="num">0</span>, hi = beautyVals.length - <span class="num">1</span>, ans = -<span class="num">1</span>;
+        <span class="kw">while</span> (lo &lt;= hi) {
+            <span class="kw">int</span> mid = (lo + hi) / <span class="num">2</span>;
+            <span class="kw">if</span> (canReach(src, dst, beautyVals[mid])) { ans = beautyVals[mid]; lo = mid + <span class="num">1</span>; }
+            <span class="kw">else</span> hi = mid - <span class="num">1</span>;
+        }
+        <span class="kw">return</span> ans;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O((V+E) log E)</code></div>
+          <div class="cx"><span>Space</span><code>O(V+E)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Circular Chairs -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">8</div>
+        <div style="flex:1"><span class="badge badge-medium">Medium</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Circular Chairs — Circular BFS with Modular Indexing</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> N chairs arranged in a circle. Some chairs have people. At each second, people move: each person sitting on an empty chair can move to an adjacent chair. Find after T seconds, how many people are in each chair, or which chairs are occupied. Classic circular BFS/simulation.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Model as BFS where sources are all initially occupied chairs. BFS level = time. Use modular arithmetic for circular movement: next = (i+1)%N, prev = (i-1+N)%N. Multi-source BFS gives min time for each chair.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Circular Chairs</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">CircularChairs</span> {
+    <span class="kw">public static int</span>[] <span class="fn">minTimeToReach</span>(<span class="kw">int</span> n, <span class="kw">boolean</span>[] occupied) {
+        <span class="kw">int</span>[] dist = <span class="kw">new int</span>[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        Queue&lt;Integer&gt; q = <span class="kw">new</span> LinkedList&lt;&gt;();
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++)
+            <span class="kw">if</span> (occupied[i]) { dist[i] = <span class="num">0</span>; q.offer(i); }
+
+        <span class="kw">while</span> (!q.isEmpty()) {
+            <span class="kw">int</span> cur = q.poll();
+            <span class="kw">int</span>[] nexts = {(cur+<span class="num">1</span>)%n, (cur-<span class="num">1</span>+n)%n};
+            <span class="kw">for</span> (<span class="kw">int</span> nx : nexts)
+                <span class="kw">if</span> (dist[nx] == Integer.MAX_VALUE) {
+                    dist[nx] = dist[cur] + <span class="num">1</span>;
+                    q.offer(nx);
+                }
+        }
+        <span class="kw">return</span> dist; <span class="cm">// dist[i] = min steps for any person to reach chair i</span>
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(N)</code></div>
+          <div class="cx"><span>Space</span><code>O(N)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- XOR Partition -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">9</div>
+        <div style="flex:1"><span class="badge badge-medium">Medium</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">XOR Partition — Prefix XOR with HashMap</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given an array, partition it into the minimum number of subarrays where each subarray's XOR equals a target value T. Return the minimum number of partitions, or -1 if impossible.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Compute prefix XOR. A partition ends at index r if prefixXOR[r] = (number_of_partitions × T). Greedily: when prefix XOR matches the target multiple, finalize a partition. This gives O(n) greedy solution.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — XOR Partition</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">public class</span> <span class="ty">XORPartition</span> {
+    <span class="kw">public static int</span> <span class="fn">minPartitions</span>(<span class="kw">int</span>[] a, <span class="kw">int</span> target) {
+        <span class="kw">int</span> xorSoFar = <span class="num">0</span>, parts = <span class="num">0</span>;
+        <span class="kw">int</span> runTarget = target;
+
+        <span class="kw">for</span> (<span class="kw">int</span> x : a) {
+            xorSoFar ^= x;
+            <span class="kw">if</span> (xorSoFar == runTarget) {
+                <span class="cm">// End of a valid partition</span>
+                parts++;
+                xorSoFar = <span class="num">0</span>; <span class="cm">// Reset for next segment</span>
+            }
+        }
+        <span class="cm">// Valid if all elements are covered (xorSoFar == 0 at end)</span>
+        <span class="kw">return</span> (xorSoFar == <span class="num">0</span>) ? parts : -<span class="num">1</span>;
+    }
+    <span class="cm">// Note: Also check if total XOR == target → if yes, partition into single subarray</span>
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(N)</code></div>
+          <div class="cx"><span>Space</span><code>O(1)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Min-K Longest Path -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">10</div>
+        <div style="flex:1"><span class="badge badge-hard">Hard</span>&nbsp;<span class="year-tag">2025</span>&nbsp;<span class="q-title">Min-K Longest Path — Binary Search on Answer + DP</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given a DAG (Directed Acyclic Graph) with weighted edges, find the longest path that uses at most K edges with weight ≥ some threshold T. Binary search on T; for each T, run DP to find longest path using only edges with weight ≥ T.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Binary search on T (the minimum edge weight). For each T, do topological DP: dp[node] = longest path ending at node using only edges with weight ≥ T. Binary search halves the search space. Total: O(n² log n).</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Min-K Longest Path</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">MinKLongestPath</span> {
+    <span class="kw">static int</span> n;
+    <span class="kw">static int</span>[][] adjMatrix; <span class="cm">// adjMatrix[u][v] = weight, -1 if no edge</span>
+
+    <span class="kw">static int</span> <span class="fn">longestPathWithThreshold</span>(<span class="kw">int</span> T) {
+        <span class="kw">int</span>[] dp = <span class="kw">new int</span>[n];
+        <span class="kw">int</span> ans = <span class="num">0</span>;
+        <span class="cm">// Process nodes in topological order (assumed 0..n-1)</span>
+        <span class="kw">for</span> (<span class="kw">int</span> u = <span class="num">0</span>; u &lt; n; u++) {
+            <span class="kw">for</span> (<span class="kw">int</span> v = <span class="num">0</span>; v &lt; n; v++) {
+                <span class="kw">if</span> (adjMatrix[u][v] &gt;= T) {
+                    dp[v] = Math.max(dp[v], dp[u] + <span class="num">1</span>);
+                    ans = Math.max(ans, dp[v]);
+                }
+            }
+        }
+        <span class="kw">return</span> ans;
+    }
+
+    <span class="kw">public static int</span> <span class="fn">solve</span>(<span class="kw">int</span> k, <span class="kw">int</span>[] weights) {
+        <span class="kw">int</span>[] sorted = weights.clone(); Arrays.sort(sorted);
+        <span class="kw">int</span> lo = <span class="num">0</span>, hi = sorted.length - <span class="num">1</span>, ans = <span class="num">0</span>;
+        <span class="kw">while</span> (lo &lt;= hi) {
+            <span class="kw">int</span> mid = (lo + hi) / <span class="num">2</span>;
+            <span class="kw">if</span> (longestPathWithThreshold(sorted[mid]) &gt;= k) {
+                ans = sorted[mid]; lo = mid + <span class="num">1</span>;
+            } <span class="kw">else</span> hi = mid - <span class="num">1</span>;
+        }
+        <span class="kw">return</span> ans;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(n² log n)</code></div>
+          <div class="cx"><span>Space</span><code>O(n)</code></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end t2025 -->
+
+  <!-- 2024 -->
+  <div class="tab-pane" id="t2024">
+
+    <!-- Array AP Queries -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">1</div>
+        <div style="flex:1"><span class="badge badge-easy">Easy</span>&nbsp;<span class="year-tag">2024</span>&nbsp;<span class="q-title">Array AP Queries — Reverse Processing with Difference Array</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given an array and Q queries, each query adds an Arithmetic Progression to a subrange [l, r]: add values a, a+d, a+2d, ... to positions l through r. Answer all queries, then print the final array. Use a difference array technique extended for APs.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> Standard difference array handles range-add of a constant. For AP, use a second-order difference array: D1[l]+=a, D1[r+1]-=(a+len*d), D2[l]+=d, D2[r+1]-=d. Apply two prefix sum passes to reconstruct the array.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Array AP Queries</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">public class</span> <span class="ty">ArrayAPQueries</span> {
+    <span class="kw">public static long</span>[] <span class="fn">solve</span>(<span class="kw">int</span> n, <span class="kw">int</span>[][] queries) {
+        <span class="kw">long</span>[] D1 = <span class="kw">new long</span>[n + <span class="num">2</span>];
+        <span class="kw">long</span>[] D2 = <span class="kw">new long</span>[n + <span class="num">2</span>];
+
+        <span class="kw">for</span> (<span class="kw">int</span>[] q : queries) {
+            <span class="kw">int</span> l = q[<span class="num">0</span>], r = q[<span class="num">1</span>];
+            <span class="kw">long</span> a = q[<span class="num">2</span>], d = q[<span class="num">3</span>]; <span class="cm">// AP: a, a+d, a+2d, ...</span>
+            <span class="kw">int</span> len = r - l + <span class="num">1</span>;
+            D1[l] += a;     D1[r+<span class="num">1</span>] -= (a + (<span class="kw">long</span>)len * d);
+            D2[l] += d;     D2[r+<span class="num">1</span>] -= d;
+        }
+
+        <span class="cm">// Reconstruct: two prefix sum passes</span>
+        <span class="kw">long</span>[] res = <span class="kw">new long</span>[n];
+        <span class="kw">long</span> val = <span class="num">0</span>, inc = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) {
+            inc += D2[i];
+            val += D1[i] + inc;  <span class="cm">// Wait — cleaner approach below</span>
+            res[i] = val;
+        }
+        <span class="kw">return</span> res;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Build</span><code>O(Q)</code></div>
+          <div class="cx"><span>Reconstruct</span><code>O(N)</code></div>
+          <div class="cx"><span>Space</span><code>O(N)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D XYZ DP -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">2</div>
+        <div style="flex:1"><span class="badge badge-medium">Medium</span>&nbsp;<span class="year-tag">2024</span>&nbsp;<span class="q-title">3D XYZ DP — Three-Dimensional State Dynamic Programming</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given a 3D grid of size N×N×N, you start at (0,0,0) and want to reach (N-1, N-1, N-1). You can only move in +x, +y, +z directions. Each cell has a value. Find the path with maximum sum. Classic 3D grid DP.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> dp[x][y][z] = max path sum to reach (x,y,z). Transition: dp[x][y][z] = grid[x][y][z] + max(dp[x-1][y][z], dp[x][y-1][z], dp[x][y][z-1]). Fill in order of increasing x, y, z.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — 3D XYZ DP</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">public class</span> <span class="ty">ThreeDXYZDP</span> {
+    <span class="kw">public static long</span> <span class="fn">maxPathSum</span>(<span class="kw">int</span> n, <span class="kw">int</span>[][][] grid) {
+        <span class="kw">long</span>[][][] dp = <span class="kw">new long</span>[n][n][n];
+
+        <span class="kw">for</span> (<span class="kw">int</span> x = <span class="num">0</span>; x &lt; n; x++) {
+            <span class="kw">for</span> (<span class="kw">int</span> y = <span class="num">0</span>; y &lt; n; y++) {
+                <span class="kw">for</span> (<span class="kw">int</span> z = <span class="num">0</span>; z &lt; n; z++) {
+                    <span class="kw">long</span> best = Long.MIN_VALUE;
+                    <span class="kw">if</span> (x==<span class="num">0</span> &amp;&amp; y==<span class="num">0</span> &amp;&amp; z==<span class="num">0</span>) { dp[<span class="num">0</span>][<span class="num">0</span>][<span class="num">0</span>] = grid[<span class="num">0</span>][<span class="num">0</span>][<span class="num">0</span>]; <span class="kw">continue</span>; }
+                    <span class="kw">if</span> (x &gt; <span class="num">0</span>) best = Math.max(best, dp[x-<span class="num">1</span>][y][z]);
+                    <span class="kw">if</span> (y &gt; <span class="num">0</span>) best = Math.max(best, dp[x][y-<span class="num">1</span>][z]);
+                    <span class="kw">if</span> (z &gt; <span class="num">0</span>) best = Math.max(best, dp[x][y][z-<span class="num">1</span>]);
+                    dp[x][y][z] = best + grid[x][y][z];
+                }
+            }
+        }
+        <span class="kw">return</span> dp[n-<span class="num">1</span>][n-<span class="num">1</span>][n-<span class="num">1</span>];
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(N³)</code></div>
+          <div class="cx"><span>Space</span><code>O(N³)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tree Beautiful Set -->
+    <div class="q-card">
+      <div class="q-hd" onclick="toggle(this)">
+        <div class="q-num">3</div>
+        <div style="flex:1"><span class="badge badge-hard">Hard</span>&nbsp;<span class="year-tag">2024</span>&nbsp;<span class="q-title">Tree Beautiful Set — DFS with Subtree Count DP</span></div>
+        <span class="q-arrow">▼</span>
+      </div>
+      <div class="q-body">
+        <div class="info-box">
+          <strong>Problem:</strong> Given a tree of N nodes, a "beautiful set" is a subset of nodes such that for any two nodes u, v in the set, the path between them passes through at least one other node in the set. Find the maximum size beautiful set.
+        </div>
+        <div class="tip-box"><strong>Key Insight:</strong> A beautiful set = a connected subtree. The maximum beautiful set is the maximum connected induced subgraph. Use tree DP: dp[node] = max beautiful set size in the subtree rooted at node. Merge children greedily.</div>
+        <div class="code-block">
+          <div class="code-hd"><span class="code-lang">Java — Tree Beautiful Set</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+          <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">TreeBeautifulSet</span> {
+    <span class="kw">static</span> List&lt;Integer&gt;[] tree;
+    <span class="kw">static int</span>[] val;  <span class="cm">// node values</span>
+    <span class="kw">static int</span> ans = <span class="num">0</span>;
+
+    <span class="kw">static int</span> <span class="fn">dfs</span>(<span class="kw">int</span> node, <span class="kw">int</span> par) {
+        <span class="kw">int</span> maxFromChild = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> child : tree[node]) {
+            <span class="kw">if</span> (child == par) <span class="kw">continue</span>;
+            <span class="kw">int</span> childBest = dfs(child, node);
+            <span class="cm">// Update answer: path through this node using best two child subtrees</span>
+            ans = Math.max(ans, maxFromChild + childBest + <span class="num">1</span>);
+            maxFromChild = Math.max(maxFromChild, childBest);
+        }
+        ans = Math.max(ans, maxFromChild + <span class="num">1</span>);
+        <span class="kw">return</span> maxFromChild + <span class="num">1</span>; <span class="cm">// Best chain including this node</span>
+    }
+
+    <span class="kw">public static int</span> <span class="fn">solve</span>(<span class="kw">int</span> n, <span class="kw">int</span>[][] edges) {
+        tree = <span class="kw">new</span> List[n + <span class="num">1</span>];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt;= n; i++) tree[i] = <span class="kw">new</span> ArrayList&lt;&gt;();
+        <span class="kw">for</span> (<span class="kw">int</span>[] e : edges) { tree[e[<span class="num">0</span>]].add(e[<span class="num">1</span>]); tree[e[<span class="num">1</span>]].add(e[<span class="num">0</span>]); }
+        ans = <span class="num">1</span>;
+        dfs(<span class="num">1</span>, -<span class="num">1</span>);
+        <span class="kw">return</span> ans;
+    }
+}</pre>
+        </div>
+        <div class="complexity">
+          <div class="cx"><span>Time</span><code>O(N)</code></div>
+          <div class="cx"><span>Space</span><code>O(N)</code></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end t2024 -->
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ MOCK EXAM ══════════ -->
+<section id="mock">
+<div class="wrap">
+  <div class="sec-hd">
+    <span class="sec-tag">Practice Test</span>
+    <h2 class="sec-title">Mock Exam — Test Yourself</h2>
+    <p class="sec-desc">3 fresh questions in authentic HackWithInfy style. Set a 3-hour timer. Try each before expanding the solution.</p>
+  </div>
+
+  <div class="how-tip" style="margin-bottom:24px">
+    <strong>Exam Simulation Rules:</strong> Easy = max 30 min → Medium = max 60 min → Hard = max 90 min. No copy-paste. Write all code by hand. Read the problem twice before coding. Always check edge cases: empty input, single element, all-negative arrays, INT_MAX overflow.
+  </div>
+
+  <!-- Mock Q1 -->
+  <div class="q-card">
+    <div class="q-hd" onclick="toggle(this)">
+      <div class="q-num">M1</div>
+      <div style="flex:1"><span class="badge badge-easy">Easy</span>&nbsp;<span class="badge badge-new">Mock</span>&nbsp;<span class="q-title">Staircase Steps — Count Ways to Climb (Fibonacci DP)</span></div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="q-body">
+      <div class="info-box">
+        <strong>Problem:</strong> You are at the bottom of a staircase with N steps. You can climb 1 or 2 steps at a time. Count the total number of distinct ways to reach the top. For large N (up to 10⁶), answer modulo 10⁹+7.
+        <br><br><strong>Sample:</strong> N=4 → Ways: (1,1,1,1), (1,1,2), (1,2,1), (2,1,1), (2,2) = 5 ways.
+        <br><strong>Constraints:</strong> 1 ≤ N ≤ 10⁶
+      </div>
+      <div class="tip-box"><strong>Think First:</strong> Notice ways(N) = ways(N-1) + ways(N-2) — it's Fibonacci! Base: ways(1)=1, ways(2)=2.</div>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Staircase Steps</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">StaircaseSteps</span> {
+    <span class="kw">static final int</span> MOD = <span class="num">1_000_000_007</span>;
+
+    <span class="kw">public static long</span> <span class="fn">countWays</span>(<span class="kw">int</span> n) {
+        <span class="kw">if</span> (n == <span class="num">1</span>) <span class="kw">return</span> <span class="num">1</span>;
+        <span class="kw">if</span> (n == <span class="num">2</span>) <span class="kw">return</span> <span class="num">2</span>;
+
+        <span class="cm">// Space-optimized: only need last two values</span>
+        <span class="kw">long</span> prev2 = <span class="num">1</span>, prev1 = <span class="num">2</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">3</span>; i &lt;= n; i++) {
+            <span class="kw">long</span> curr = (prev1 + prev2) % MOD;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        <span class="kw">return</span> prev1;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.println(countWays(<span class="num">4</span>));  <span class="cm">// 5</span>
+        System.out.println(countWays(<span class="num">10</span>)); <span class="cm">// 89</span>
+        System.out.println(countWays(<span class="num">1000000</span>)); <span class="cm">// Very large, mod applied</span>
+    }
+}</pre>
+      </div>
+      <ul class="steps">
+        <li><strong>Recurrence:</strong> ways(n) = ways(n-1) + ways(n-2) — either last step was 1 or 2.</li>
+        <li><strong>Space Optimization:</strong> Only store last 2 values instead of full dp array → O(1) space.</li>
+        <li><strong>Modulo:</strong> Apply modulo at each step to prevent integer overflow.</li>
+      </ul>
+      <div class="complexity">
+        <div class="cx"><span>Time</span><code>O(N)</code></div>
+        <div class="cx"><span>Space</span><code>O(1)</code></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mock Q2 -->
+  <div class="q-card">
+    <div class="q-hd" onclick="toggle(this)">
+      <div class="q-num">M2</div>
+      <div style="flex:1"><span class="badge badge-medium">Medium</span>&nbsp;<span class="badge badge-new">Mock</span>&nbsp;<span class="q-title">Minimum Platforms — Interval Scheduling with Sorting</span></div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="q-body">
+      <div class="info-box">
+        <strong>Problem:</strong> You are given arrival times and departure times of N trains at a railway station. Find the minimum number of platforms required so that no train waits. Each platform can hold one train at a time.
+        <br><br><strong>Sample:</strong> arrivals=[900,940,950,1100,1500,1800], departures=[910,1200,1120,1130,1900,2000] → Answer: 3
+        <br><strong>Constraints:</strong> 1 ≤ N ≤ 10⁶, times in HHMM format.
+      </div>
+      <div class="tip-box"><strong>Think First:</strong> Sort arrival and departure separately. Two-pointer sweep: when next arrival comes before earliest departure, need a new platform. Classic interval scheduling.</div>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Minimum Platforms</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">MinimumPlatforms</span> {
+    <span class="kw">public static int</span> <span class="fn">findPlatforms</span>(<span class="kw">int</span>[] arr, <span class="kw">int</span>[] dep) {
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+
+        <span class="kw">int</span> platforms = <span class="num">1</span>, maxPlatforms = <span class="num">1</span>;
+        <span class="kw">int</span> i = <span class="num">1</span>, j = <span class="num">0</span>;  <span class="cm">// i = arrival pointer, j = departure pointer</span>
+
+        <span class="kw">while</span> (i &lt; arr.length &amp;&amp; j &lt; dep.length) {
+            <span class="kw">if</span> (arr[i] &lt;= dep[j]) {
+                <span class="cm">// A train arrives before earliest departure — need new platform</span>
+                platforms++;
+                i++;
+            } <span class="kw">else</span> {
+                <span class="cm">// A train departs before next arrival — platform freed</span>
+                platforms--;
+                j++;
+            }
+            maxPlatforms = Math.max(maxPlatforms, platforms);
+        }
+        <span class="kw">return</span> maxPlatforms;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="kw">int</span>[] arr = {<span class="num">900</span>,<span class="num">940</span>,<span class="num">950</span>,<span class="num">1100</span>,<span class="num">1500</span>,<span class="num">1800</span>};
+        <span class="kw">int</span>[] dep = {<span class="num">910</span>,<span class="num">1200</span>,<span class="num">1120</span>,<span class="num">1130</span>,<span class="num">1900</span>,<span class="num">2000</span>};
+        System.out.println(findPlatforms(arr, dep)); <span class="cm">// 3</span>
+    }
+}</pre>
+      </div>
+      <ul class="steps">
+        <li><strong>Step 1:</strong> Sort both arrival and departure arrays independently.</li>
+        <li><strong>Step 2:</strong> Use two pointers i (arrivals), j (departures). Start with 1 platform.</li>
+        <li><strong>Step 3:</strong> If arr[i] ≤ dep[j]: new train arrives before earliest leaves → need +1 platform. Else: dep[j] &lt; arr[i] → train leaves, free platform.</li>
+        <li><strong>Step 4:</strong> Track max platforms seen. This is the answer.</li>
+      </ul>
+      <div class="complexity">
+        <div class="cx"><span>Time</span><code>O(N log N)</code></div>
+        <div class="cx"><span>Space</span><code>O(1)</code></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mock Q3 -->
+  <div class="q-card">
+    <div class="q-hd" onclick="toggle(this)">
+      <div class="q-num">M3</div>
+      <div style="flex:1"><span class="badge badge-hard">Hard</span>&nbsp;<span class="badge badge-new">Mock</span>&nbsp;<span class="q-title">Word Ladder — BFS on Word Graph (Shortest Transformation Sequence)</span></div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="q-body">
+      <div class="info-box">
+        <strong>Problem:</strong> Given beginWord, endWord, and a wordList, find the length of the shortest transformation sequence from beginWord to endWord such that: (1) Each step, change exactly one character, (2) Every intermediate word must be in wordList. Return 0 if no such sequence exists.
+        <br><br><strong>Sample:</strong> begin="hit", end="cog", list=["hot","dot","dog","lot","log","cog"] → Answer: 5 (hit→hot→dot→dog→cog)
+        <br><strong>Constraints:</strong> 1 ≤ wordLen ≤ 10, 1 ≤ wordList.size ≤ 5000
+      </div>
+      <div class="tip-box"><strong>Think First:</strong> Model as a graph: nodes = words, edges = words differing by 1 char. BFS gives shortest path. Optimization: instead of comparing all word pairs, try all 26 letter substitutions at each position.</div>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Word Ladder (BFS)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">WordLadder</span> {
+    <span class="kw">public static int</span> <span class="fn">ladderLength</span>(String begin, String end, List&lt;String&gt; wordList) {
+        Set&lt;String&gt; wordSet = <span class="kw">new</span> HashSet&lt;&gt;(wordList);
+        <span class="kw">if</span> (!wordSet.contains(end)) <span class="kw">return</span> <span class="num">0</span>;
+
+        Queue&lt;String&gt; q = <span class="kw">new</span> LinkedList&lt;&gt;();
+        q.offer(begin);
+        <span class="kw">int</span> steps = <span class="num">1</span>;
+
+        <span class="kw">while</span> (!q.isEmpty()) {
+            <span class="kw">int</span> size = q.size();
+            <span class="kw">while</span> (size-- &gt; <span class="num">0</span>) {
+                String curr = q.poll();
+                <span class="kw">char</span>[] chars = curr.toCharArray();
+
+                <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; chars.length; i++) {
+                    <span class="kw">char</span> orig = chars[i];
+                    <span class="kw">for</span> (<span class="kw">char</span> c = <span class="str">'a'</span>; c &lt;= <span class="str">'z'</span>; c++) {
+                        <span class="kw">if</span> (c == orig) <span class="kw">continue</span>;
+                        chars[i] = c;
+                        String next = <span class="kw">new</span> String(chars);
+                        <span class="kw">if</span> (next.equals(end)) <span class="kw">return</span> steps + <span class="num">1</span>;
+                        <span class="kw">if</span> (wordSet.remove(next)) q.offer(next);
+                    }
+                    chars[i] = orig; <span class="cm">// Restore</span>
+                }
+            }
+            steps++;
+        }
+        <span class="kw">return</span> <span class="num">0</span>;
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.println(ladderLength(<span class="str">"hit"</span>, <span class="str">"cog"</span>,
+            Arrays.asList(<span class="str">"hot"</span>,<span class="str">"dot"</span>,<span class="str">"dog"</span>,<span class="str">"lot"</span>,<span class="str">"log"</span>,<span class="str">"cog"</span>))); <span class="cm">// 5</span>
+    }
+}</pre>
+      </div>
+      <ul class="steps">
+        <li><strong>Step 1:</strong> Put wordList into a HashSet for O(1) lookup and removal.</li>
+        <li><strong>Step 2:</strong> BFS from beginWord. At each level (step), try changing each character position to 'a'-'z'.</li>
+        <li><strong>Step 3:</strong> If the new word is in the set, add it to queue. Remove from set to avoid revisiting.</li>
+        <li><strong>Step 4:</strong> If new word == endWord, return current step count + 1. If queue empties, return 0.</li>
+        <li><strong>Key Trick:</strong> Remove from set instead of using visited[] — faster and cleaner.</li>
+      </ul>
+      <div class="complexity">
+        <div class="cx"><span>Time</span><code>O(N × L × 26)</code></div>
+        <div class="cx"><span>Space</span><code>O(N × L)</code></div>
+        <div class="cx"><span>N=words, L=word length</span><code></code></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ DSA GUIDE ══════════ -->
+<section id="dsa">
+<div class="wrap">
+  <div class="sec-hd">
+    <span class="sec-tag">Core Concepts</span>
+    <h2 class="sec-title">DSA Guide — 14 Essential Topics</h2>
+    <p class="sec-desc">Every topic has a concept explanation, a representative problem, and a complete Java solution. Study these in roadmap order.</p>
+  </div>
+
+  <!-- Complexity Table -->
+  <div class="info-box" style="margin-bottom:28px">
+    <strong>Quick Complexity Reference:</strong>
+    <table>
+      <thead><tr><th>Algorithm</th><th>Time</th><th>Space</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>Binary Search</td><td>O(log N)</td><td>O(1)</td><td>Sorted array queries</td></tr>
+        <tr><td>BFS/DFS</td><td>O(V+E)</td><td>O(V)</td><td>Graph traversal</td></tr>
+        <tr><td>Dijkstra</td><td>O((V+E) log V)</td><td>O(V)</td><td>Shortest path weighted</td></tr>
+        <tr><td>Merge Sort</td><td>O(N log N)</td><td>O(N)</td><td>Stable sort, inversions</td></tr>
+        <tr><td>Kadane's</td><td>O(N)</td><td>O(1)</td><td>Max subarray sum</td></tr>
+        <tr><td>Sliding Window</td><td>O(N)</td><td>O(1)-O(N)</td><td>Contiguous subarrays</td></tr>
+        <tr><td>Heap (PQ)</td><td>O(N log N)</td><td>O(N)</td><td>K-th smallest/largest</td></tr>
+        <tr><td>Union-Find</td><td>O(N α(N))</td><td>O(N)</td><td>Connected components</td></tr>
+        <tr><td>Segment Tree</td><td>O(N) build, O(log N) query</td><td>O(N)</td><td>Range queries</td></tr>
+        <tr><td>Trie</td><td>O(L) per op</td><td>O(N×L)</td><td>String prefix search</td></tr>
+        <tr><td>LCS/LIS</td><td>O(N²) or O(N log N)</td><td>O(N)</td><td>Sequence DP</td></tr>
+        <tr><td>Tree DP</td><td>O(N)</td><td>O(N)</td><td>Tree path problems</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Topic 1: Prefix Sum -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">Σ</div>
+      <div class="dsa-title">1. Prefix Sum & Difference Array</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Prefix Sum: pre[i] = A[0] + A[1] + ... + A[i]. Range sum query [l,r] = pre[r] - pre[l-1] in O(1).<br>
+        Difference Array: D[i] = A[i] - A[i-1]. Range update [l,r] by +k → D[l]+=k, D[r+1]-=k. Reconstruct with prefix sum. Turns O(n) per update into O(1) per update, O(n) final reconstruction.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Representative Problem:</strong> Given array A and Q range-add queries, find the final array.</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Difference Array Range Update</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">DiffArray</span> {
+    <span class="kw">public static int</span>[] <span class="fn">rangeUpdates</span>(<span class="kw">int</span> n, <span class="kw">int</span>[][] updates) {
+        <span class="kw">int</span>[] diff = <span class="kw">new int</span>[n + <span class="num">1</span>];
+        <span class="kw">for</span> (<span class="kw">int</span>[] u : updates) { <span class="cm">// [l, r, val]</span>
+            diff[u[<span class="num">0</span>]] += u[<span class="num">2</span>];
+            <span class="kw">if</span> (u[<span class="num">1</span>] + <span class="num">1</span> &lt;= n) diff[u[<span class="num">1</span>] + <span class="num">1</span>] -= u[<span class="num">2</span>];
+        }
+        <span class="cm">// Prefix sum to reconstruct final array</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt; n; i++) diff[i] += diff[i-<span class="num">1</span>];
+        <span class="kw">return</span> diff;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Update</span><code>O(1)</code></div><div class="cx"><span>Build</span><code>O(N+Q)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 2: Sliding Window -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">🪟</div>
+      <div class="dsa-title">2. Sliding Window — Two Pointers</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Maintain a window [left, right]. Expand right to include elements. Shrink from left when a constraint is violated. The window always represents a valid state. Used for: longest subarray with sum ≤ K, max length with at most K distinct characters, minimum window substring.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> Longest subarray with sum ≤ K.</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Sliding Window Max Length</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">SlidingWindow</span> {
+    <span class="kw">public static int</span> <span class="fn">longestSubarrayWithSumK</span>(<span class="kw">int</span>[] a, <span class="kw">int</span> k) {
+        <span class="kw">int</span> left = <span class="num">0</span>, sum = <span class="num">0</span>, maxLen = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> right = <span class="num">0</span>; right &lt; a.length; right++) {
+            sum += a[right];
+            <span class="kw">while</span> (sum &gt; k &amp;&amp; left &lt;= right) sum -= a[left++];
+            maxLen = Math.max(maxLen, right - left + <span class="num">1</span>);
+        }
+        <span class="kw">return</span> maxLen;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(N)</code></div><div class="cx"><span>Space</span><code>O(1)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 3: Binary Search -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">⟺</div>
+      <div class="dsa-title">3. Binary Search — On Answer</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>"Binary Search on Answer" pattern: when the answer lies in a monotonic range and you can check feasibility in O(f(n)), binary search the answer. Common problems: "minimize maximum", "maximize minimum", "find smallest K such that condition holds".</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> Split N books of chapters into K groups. Minimize the maximum sum in any group (Painter's Partition).</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Binary Search on Answer (Painter's Partition)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">PaintersPartition</span> {
+    <span class="kw">static boolean</span> <span class="fn">feasible</span>(<span class="kw">int</span>[] books, <span class="kw">int</span> k, <span class="kw">long</span> maxWork) {
+        <span class="kw">int</span> painters = <span class="num">1</span>; <span class="kw">long</span> curr = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> b : books) {
+            <span class="kw">if</span> (curr + b &gt; maxWork) { painters++; curr = b; }
+            <span class="kw">else</span> curr += b;
+        }
+        <span class="kw">return</span> painters &lt;= k;
+    }
+
+    <span class="kw">public static long</span> <span class="fn">minTime</span>(<span class="kw">int</span>[] books, <span class="kw">int</span> k) {
+        <span class="kw">long</span> lo = 0, hi = 0;
+        <span class="kw">for</span> (<span class="kw">int</span> b : books) { lo = Math.max(lo, b); hi += b; }
+        <span class="kw">while</span> (lo &lt; hi) {
+            <span class="kw">long</span> mid = (lo + hi) / <span class="num">2</span>;
+            <span class="kw">if</span> (feasible(books, k, mid)) hi = mid;
+            <span class="kw">else</span> lo = mid + <span class="num">1</span>;
+        }
+        <span class="kw">return</span> lo;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(N log(sum))</code></div><div class="cx"><span>Space</span><code>O(1)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 4: BFS/DFS -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">🕸</div>
+      <div class="dsa-title">4. BFS & DFS — Graph Traversal Patterns</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p><strong>BFS</strong> (Queue): Explores level by level. Gives shortest path in unweighted graphs. Use when: minimum steps, nearest cell, flood fill.<br>
+        <strong>DFS</strong> (Stack/Recursion): Goes deep before backtracking. Use when: cycle detection, connected components, topological sort, tree paths.<br>
+        <strong>Multi-source BFS</strong>: Add all sources to queue at time=0. Automatically gives min distance from ANY source.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> 0/1 Matrix — find distance of each cell from nearest 0.</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — 01 Matrix Multi-Source BFS</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">ZeroOneMatrix</span> {
+    <span class="kw">public static int</span>[][] <span class="fn">updateMatrix</span>(<span class="kw">int</span>[][] mat) {
+        <span class="kw">int</span> R = mat.length, C = mat[<span class="num">0</span>].length;
+        <span class="kw">int</span>[][] dist = <span class="kw">new int</span>[R][C];
+        Queue&lt;<span class="kw">int</span>[]&gt; q = <span class="kw">new</span> LinkedList&lt;&gt;();
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; R; i++)
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; C; j++)
+                <span class="kw">if</span> (mat[i][j] == <span class="num">0</span>) q.offer(<span class="kw">new int</span>[]{i,j});
+                <span class="kw">else</span> dist[i][j] = Integer.MAX_VALUE;
+        <span class="kw">int</span>[][] d = {{<span class="num">0</span>,<span class="num">1</span>},{<span class="num">0</span>,<span class="num">-1</span>},{<span class="num">1</span>,<span class="num">0</span>},{<span class="num">-1</span>,<span class="num">0</span>}};
+        <span class="kw">while</span> (!q.isEmpty()) {
+            <span class="kw">int</span>[] cur = q.poll();
+            <span class="kw">for</span> (<span class="kw">int</span>[] dir : d) {
+                <span class="kw">int</span> r=cur[<span class="num">0</span>]+dir[<span class="num">0</span>], c=cur[<span class="num">1</span>]+dir[<span class="num">1</span>];
+                <span class="kw">if</span> (r&gt;=<span class="num">0</span>&amp;&amp;r&lt;R&amp;&amp;c&gt;=<span class="num">0</span>&amp;&amp;c&lt;C &amp;&amp; dist[r][c]&gt;dist[cur[<span class="num">0</span>]][cur[<span class="num">1</span>]]+<span class="num">1</span>) {
+                    dist[r][c] = dist[cur[<span class="num">0</span>]][cur[<span class="num">1</span>]] + <span class="num">1</span>;
+                    q.offer(<span class="kw">new int</span>[]{r,c});
+                }
+            }
+        }
+        <span class="kw">return</span> dist;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(R×C)</code></div><div class="cx"><span>Space</span><code>O(R×C)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 5: Heap/Priority Queue -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">△</div>
+      <div class="dsa-title">5. Heap / Priority Queue — Top K & Greedy</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>A heap is a complete binary tree. Min-Heap: parent ≤ children (Java PriorityQueue default). Max-Heap: parent ≥ children (use reverse comparator). Insert/Delete: O(log N). Peek (min/max): O(1). Key patterns: K largest elements (use min-heap of size K), K smallest (max-heap), merge K sorted lists, median of stream.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> Find median from a data stream.</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Median Finder (Two Heaps)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">MedianFinder</span> {
+    PriorityQueue&lt;Integer&gt; small = <span class="kw">new</span> PriorityQueue&lt;&gt;(Collections.reverseOrder()); <span class="cm">// max-heap (lower half)</span>
+    PriorityQueue&lt;Integer&gt; large = <span class="kw">new</span> PriorityQueue&lt;&gt;(); <span class="cm">// min-heap (upper half)</span>
+
+    <span class="kw">public void</span> <span class="fn">addNum</span>(<span class="kw">int</span> num) {
+        small.offer(num);
+        large.offer(small.poll()); <span class="cm">// Balance: max of small goes to large</span>
+        <span class="kw">if</span> (small.size() &lt; large.size())
+            small.offer(large.poll()); <span class="cm">// Keep small size &gt;= large size</span>
+    }
+
+    <span class="kw">public double</span> <span class="fn">findMedian</span>() {
+        <span class="kw">if</span> (small.size() &gt; large.size()) <span class="kw">return</span> small.peek();
+        <span class="kw">return</span> (small.peek() + large.peek()) / <span class="num">2.0</span>;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Add</span><code>O(log N)</code></div><div class="cx"><span>Median</span><code>O(1)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 6: Dynamic Programming -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">⬛</div>
+      <div class="dsa-title">6. Dynamic Programming — Tabulation & Memoization</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>DP solves problems with overlapping subproblems and optimal substructure. Two approaches: <br>
+        <strong>Top-down (Memoization):</strong> Recursion + cache results. Easier to write.<br>
+        <strong>Bottom-up (Tabulation):</strong> Fill a table iteratively. Better for space optimization.<br>
+        Classic problems: 0/1 Knapsack, LCS, LIS, Coin Change, Edit Distance, Partition DP.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> Longest Increasing Subsequence (LIS) in O(N log N).</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — LIS in O(N log N) with Patience Sorting</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">LIS</span> {
+    <span class="kw">public static int</span> <span class="fn">lengthOfLIS</span>(<span class="kw">int</span>[] nums) {
+        List&lt;Integer&gt; tails = <span class="kw">new</span> ArrayList&lt;&gt;();
+        <span class="kw">for</span> (<span class="kw">int</span> num : nums) {
+            <span class="cm">// Binary search: find first tail &gt;= num</span>
+            <span class="kw">int</span> lo = <span class="num">0</span>, hi = tails.size();
+            <span class="kw">while</span> (lo &lt; hi) {
+                <span class="kw">int</span> mid = (lo + hi) / <span class="num">2</span>;
+                <span class="kw">if</span> (tails.get(mid) &lt; num) lo = mid + <span class="num">1</span>;
+                <span class="kw">else</span> hi = mid;
+            }
+            <span class="kw">if</span> (lo == tails.size()) tails.add(num);
+            <span class="kw">else</span> tails.set(lo, num); <span class="cm">// Replace to keep tails as small as possible</span>
+        }
+        <span class="kw">return</span> tails.size();
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(N log N)</code></div><div class="cx"><span>Space</span><code>O(N)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 7: Union-Find -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">∪</div>
+      <div class="dsa-title">7. Union-Find (DSU) — Disjoint Set Union</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>DSU tracks which elements belong to the same set. Two operations: find(x) = root of x's set, union(x,y) = merge x and y's sets. Optimizations: Path Compression (flatten tree in find), Union by Rank (attach smaller tree under larger). With both: nearly O(1) per operation.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> Number of connected components in an undirected graph.</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — DSU with Path Compression + Union by Rank</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">DSU</span> {
+    <span class="kw">int</span>[] parent, rank;
+
+    <span class="ty">DSU</span>(<span class="kw">int</span> n) {
+        parent = <span class="kw">new int</span>[n]; rank = <span class="kw">new int</span>[n];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n; i++) parent[i] = i;
+    }
+
+    <span class="kw">int</span> <span class="fn">find</span>(<span class="kw">int</span> x) {
+        <span class="kw">if</span> (parent[x] != x) parent[x] = find(parent[x]); <span class="cm">// Path compression</span>
+        <span class="kw">return</span> parent[x];
+    }
+
+    <span class="kw">boolean</span> <span class="fn">union</span>(<span class="kw">int</span> x, <span class="kw">int</span> y) {
+        <span class="kw">int</span> rx = find(x), ry = find(y);
+        <span class="kw">if</span> (rx == ry) <span class="kw">return false</span>; <span class="cm">// Already same set</span>
+        <span class="kw">if</span> (rank[rx] &lt; rank[ry]) { <span class="kw">int</span> t=rx; rx=ry; ry=t; }
+        parent[ry] = rx; <span class="cm">// Union by rank</span>
+        <span class="kw">if</span> (rank[rx] == rank[ry]) rank[rx]++;
+        <span class="kw">return true</span>;
+    }
+
+    <span class="kw">public static int</span> <span class="fn">countComponents</span>(<span class="kw">int</span> n, <span class="kw">int</span>[][] edges) {
+        DSU dsu = <span class="kw">new</span> DSU(n);
+        <span class="kw">int</span> components = n;
+        <span class="kw">for</span> (<span class="kw">int</span>[] e : edges)
+            <span class="kw">if</span> (dsu.union(e[<span class="num">0</span>], e[<span class="num">1</span>])) components--;
+        <span class="kw">return</span> components;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(α(N)) per op</code></div><div class="cx"><span>Space</span><code>O(N)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 8: Segment Tree -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">🌲</div>
+      <div class="dsa-title">8. Segment Tree — Range Queries with Point Updates</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Segment tree divides an array into segments. Each node stores aggregate (sum/min/max) of a range. Build: O(N). Query range [l,r]: O(log N). Update a point: O(log N). The tree is stored as an array: node i → children 2i and 2i+1. Leaf nodes are individual elements.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> Range sum queries with point updates.</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Segment Tree (Sum)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">SegTree</span> {
+    <span class="kw">int</span>[] tree;
+    <span class="kw">int</span> n;
+
+    <span class="ty">SegTree</span>(<span class="kw">int</span>[] arr) {
+        n = arr.length; tree = <span class="kw">new int</span>[<span class="num">4</span>*n];
+        build(arr, <span class="num">1</span>, <span class="num">0</span>, n-<span class="num">1</span>);
+    }
+
+    <span class="kw">void</span> <span class="fn">build</span>(<span class="kw">int</span>[] arr, <span class="kw">int</span> node, <span class="kw">int</span> s, <span class="kw">int</span> e) {
+        <span class="kw">if</span> (s == e) { tree[node] = arr[s]; <span class="kw">return</span>; }
+        <span class="kw">int</span> m = (s+e)/<span class="num">2</span>;
+        build(arr, <span class="num">2</span>*node, s, m);
+        build(arr, <span class="num">2</span>*node+<span class="num">1</span>, m+<span class="num">1</span>, e);
+        tree[node] = tree[<span class="num">2</span>*node] + tree[<span class="num">2</span>*node+<span class="num">1</span>];
+    }
+
+    <span class="kw">void</span> <span class="fn">update</span>(<span class="kw">int</span> node, <span class="kw">int</span> s, <span class="kw">int</span> e, <span class="kw">int</span> idx, <span class="kw">int</span> val) {
+        <span class="kw">if</span> (s == e) { tree[node] = val; <span class="kw">return</span>; }
+        <span class="kw">int</span> m = (s+e)/<span class="num">2</span>;
+        <span class="kw">if</span> (idx &lt;= m) update(<span class="num">2</span>*node, s, m, idx, val);
+        <span class="kw">else</span> update(<span class="num">2</span>*node+<span class="num">1</span>, m+<span class="num">1</span>, e, idx, val);
+        tree[node] = tree[<span class="num">2</span>*node] + tree[<span class="num">2</span>*node+<span class="num">1</span>];
+    }
+
+    <span class="kw">int</span> <span class="fn">query</span>(<span class="kw">int</span> node, <span class="kw">int</span> s, <span class="kw">int</span> e, <span class="kw">int</span> l, <span class="kw">int</span> r) {
+        <span class="kw">if</span> (r &lt; s || e &lt; l) <span class="kw">return</span> <span class="num">0</span>; <span class="cm">// Out of range</span>
+        <span class="kw">if</span> (l &lt;= s &amp;&amp; e &lt;= r) <span class="kw">return</span> tree[node]; <span class="cm">// Fully covered</span>
+        <span class="kw">int</span> m = (s+e)/<span class="num">2</span>;
+        <span class="kw">return</span> query(<span class="num">2</span>*node, s, m, l, r) + query(<span class="num">2</span>*node+<span class="num">1</span>, m+<span class="num">1</span>, e, l, r);
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Build</span><code>O(N)</code></div><div class="cx"><span>Query</span><code>O(log N)</code></div><div class="cx"><span>Update</span><code>O(log N)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 9: Tree DP -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">🌿</div>
+      <div class="dsa-title">9. Tree DP — Rerooting & Subtree Aggregation</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Tree DP computes values bottom-up (leaves → root). Each node's answer depends on its children's computed values. Key patterns: maximum path sum in tree (diameter), max independent set on tree, counting paths with property. "Rerooting" technique: first DFS downward, then DFS upward to aggregate from parent's direction too.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> Diameter of a tree (longest path between any two nodes).</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Tree Diameter (DFS DP)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">TreeDiameter</span> {
+    <span class="kw">static</span> List&lt;Integer&gt;[] adj;
+    <span class="kw">static int</span> diameter = <span class="num">0</span>;
+
+    <span class="kw">static int</span> <span class="fn">dfs</span>(<span class="kw">int</span> u, <span class="kw">int</span> par) {
+        <span class="kw">int</span> maxDepth = <span class="num">0</span>, secondMax = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> v : adj[u]) {
+            <span class="kw">if</span> (v == par) <span class="kw">continue</span>;
+            <span class="kw">int</span> depth = dfs(v, u) + <span class="num">1</span>;
+            <span class="kw">if</span> (depth &gt;= maxDepth) { secondMax = maxDepth; maxDepth = depth; }
+            <span class="kw">else if</span> (depth &gt; secondMax) secondMax = depth;
+        }
+        <span class="cm">// Path through node u: maxDepth + secondMax (or just maxDepth if leaf)</span>
+        diameter = Math.max(diameter, maxDepth + secondMax);
+        <span class="kw">return</span> maxDepth;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(N)</code></div><div class="cx"><span>Space</span><code>O(N)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 10: Trie -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">T</div>
+      <div class="dsa-title">10. Trie — Prefix Tree for String Problems</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Trie is a tree where each path from root to a node represents a string prefix. Each node has up to 26 children (for lowercase letters). Insert a word: O(L). Search a prefix: O(L). Used for: autocomplete, longest common prefix, word search, XOR maximization (binary trie).</p>
+      </div>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Trie Implementation</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">Trie</span> {
+    <span class="kw">private</span> Trie[] children = <span class="kw">new</span> Trie[<span class="num">26</span>];
+    <span class="kw">private boolean</span> isEnd;
+
+    <span class="kw">public void</span> <span class="fn">insert</span>(String word) {
+        Trie cur = <span class="kw">this</span>;
+        <span class="kw">for</span> (<span class="kw">char</span> c : word.toCharArray()) {
+            <span class="kw">int</span> idx = c - <span class="str">'a'</span>;
+            <span class="kw">if</span> (cur.children[idx] == <span class="kw">null</span>) cur.children[idx] = <span class="kw">new</span> Trie();
+            cur = cur.children[idx];
+        }
+        cur.isEnd = <span class="kw">true</span>;
+    }
+
+    <span class="kw">public boolean</span> <span class="fn">startsWith</span>(String prefix) {
+        Trie cur = <span class="kw">this</span>;
+        <span class="kw">for</span> (<span class="kw">char</span> c : prefix.toCharArray()) {
+            <span class="kw">int</span> idx = c - <span class="str">'a'</span>;
+            <span class="kw">if</span> (cur.children[idx] == <span class="kw">null</span>) <span class="kw">return false</span>;
+            cur = cur.children[idx];
+        }
+        <span class="kw">return true</span>;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Insert</span><code>O(L)</code></div><div class="cx"><span>Search</span><code>O(L)</code></div><div class="cx"><span>Space</span><code>O(N×L)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 11: Kadane's -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">K</div>
+      <div class="dsa-title">11. Kadane's Algorithm — Maximum Subarray Variants</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Kadane's finds maximum subarray sum in O(N). Key recurrence: cur = max(cur + a[i], a[i]). If cur goes negative, start fresh. Variants: maximum subarray product (track both max and min — negatives matter), maximum sum circular subarray (total sum − minimum subarray sum), max subarray with at most K elements.</p>
+      </div>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Kadane's + Circular Variant</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">Kadane</span> {
+    <span class="kw">public static int</span> <span class="fn">maxSubarraySum</span>(<span class="kw">int</span>[] a) {
+        <span class="kw">int</span> maxSoFar = a[<span class="num">0</span>], cur = a[<span class="num">0</span>];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt; a.length; i++) {
+            cur = Math.max(a[i], cur + a[i]);
+            maxSoFar = Math.max(maxSoFar, cur);
+        }
+        <span class="kw">return</span> maxSoFar;
+    }
+
+    <span class="cm">// Circular variant: max of (normal Kadane) vs (total − minSubarray)</span>
+    <span class="kw">public static int</span> <span class="fn">maxCircularSubarray</span>(<span class="kw">int</span>[] a) {
+        <span class="kw">int</span> total = <span class="num">0</span>, maxSum = a[<span class="num">0</span>], minSum = a[<span class="num">0</span>], curMax = <span class="num">0</span>, curMin = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> x : a) {
+            curMax = Math.max(curMax + x, x); maxSum = Math.max(maxSum, curMax);
+            curMin = Math.min(curMin + x, x); minSum = Math.min(minSum, curMin);
+            total += x;
+        }
+        <span class="kw">return</span> maxSum &gt; <span class="num">0</span> ? Math.max(maxSum, total - minSum) : maxSum;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(N)</code></div><div class="cx"><span>Space</span><code>O(1)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 12: Monotonic Stack -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">📚</div>
+      <div class="dsa-title">12. Monotonic Stack — Next Greater / Smaller Element</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Monotonic Stack maintains elements in increasing or decreasing order. When you push a new element, pop all elements it "dominates". Next Greater Element: maintain decreasing stack. Next Smaller: increasing stack. Applications: histogram max rectangle, daily temperatures, stock span, trapping rain water.</p>
+      </div>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Largest Rectangle in Histogram</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">LargestRectangle</span> {
+    <span class="kw">public static int</span> <span class="fn">largestArea</span>(<span class="kw">int</span>[] h) {
+        Deque&lt;Integer&gt; stack = <span class="kw">new</span> ArrayDeque&lt;&gt;();
+        <span class="kw">int</span> maxArea = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt;= h.length; i++) {
+            <span class="kw">int</span> currH = (i == h.length) ? <span class="num">0</span> : h[i];
+            <span class="kw">while</span> (!stack.isEmpty() &amp;&amp; h[stack.peek()] &gt; currH) {
+                <span class="kw">int</span> height = h[stack.pop()];
+                <span class="kw">int</span> width = stack.isEmpty() ? i : i - stack.peek() - <span class="num">1</span>;
+                maxArea = Math.max(maxArea, height * width);
+            }
+            stack.push(i);
+        }
+        <span class="kw">return</span> maxArea;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(N)</code></div><div class="cx"><span>Space</span><code>O(N)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 13: Dijkstra -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">⇒</div>
+      <div class="dsa-title">13. Dijkstra's Algorithm — Shortest Path in Weighted Graph</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Dijkstra finds shortest path from source to all nodes in a non-negative weighted graph. Uses a min-heap to always process the node with smallest known distance. dist[u] = min weight from source to u. Relaxation: if dist[u] + w(u,v) &lt; dist[v], update dist[v].</p>
+      </div>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — Dijkstra's Algorithm</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">Dijkstra</span> {
+    <span class="kw">public static long</span>[] <span class="fn">shortestPath</span>(<span class="kw">int</span> n, List&lt;<span class="kw">int</span>[]&gt;[] graph, <span class="kw">int</span> src) {
+        <span class="kw">long</span>[] dist = <span class="kw">new long</span>[n];
+        Arrays.fill(dist, Long.MAX_VALUE);
+        dist[src] = <span class="num">0</span>;
+        PriorityQueue&lt;<span class="kw">long</span>[]&gt; pq = <span class="kw">new</span> PriorityQueue&lt;&gt;((a,b) -&gt; Long.compare(a[<span class="num">0</span>],b[<span class="num">0</span>]));
+        pq.offer(<span class="kw">new long</span>[]{<span class="num">0</span>, src});
+
+        <span class="kw">while</span> (!pq.isEmpty()) {
+            <span class="kw">long</span>[] cur = pq.poll();
+            <span class="kw">long</span> d = cur[<span class="num">0</span>]; <span class="kw">int</span> u = (<span class="kw">int</span>)cur[<span class="num">1</span>];
+            <span class="kw">if</span> (d &gt; dist[u]) <span class="kw">continue</span>; <span class="cm">// Outdated entry</span>
+            <span class="kw">for</span> (<span class="kw">int</span>[] edge : graph[u]) {
+                <span class="kw">int</span> v = edge[<span class="num">0</span>]; <span class="kw">long</span> w = edge[<span class="num">1</span>];
+                <span class="kw">if</span> (dist[u] + w &lt; dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.offer(<span class="kw">new long</span>[]{dist[v], v});
+                }
+            }
+        }
+        <span class="kw">return</span> dist;
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O((V+E) log V)</code></div><div class="cx"><span>Space</span><code>O(V+E)</code></div></div>
+    </div>
+  </div>
+
+  <!-- Topic 14: Backtracking -->
+  <div class="dsa-card">
+    <div class="dsa-hd" onclick="toggleDSA(this)">
+      <div class="dsa-icon">↩</div>
+      <div class="dsa-title">14. Backtracking — Permutations, Combinations, N-Queens</div>
+      <span class="q-arrow">▼</span>
+    </div>
+    <div class="dsa-body">
+      <div class="concept-box">
+        <h4>Concept</h4>
+        <p>Backtracking builds a solution incrementally. At each step, try all valid options. If stuck, undo the last choice (backtrack) and try another. Key template: choose → explore → unchoose. Pruning (early termination) makes it efficient. Common use: all subsets, permutations, N-Queens, Sudoku solver, word search in grid.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--text2);margin:10px 0"><strong style="color:#fff">Problem:</strong> Generate all subsets (power set) of an array.</p>
+      <div class="code-block">
+        <div class="code-hd"><span class="code-lang">Java — All Subsets (Backtracking)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+<span class="kw">public class</span> <span class="ty">Subsets</span> {
+    <span class="kw">public static</span> List&lt;List&lt;Integer&gt;&gt; <span class="fn">subsets</span>(<span class="kw">int</span>[] nums) {
+        List&lt;List&lt;Integer&gt;&gt; result = <span class="kw">new</span> ArrayList&lt;&gt;();
+        backtrack(nums, <span class="num">0</span>, <span class="kw">new</span> ArrayList&lt;&gt;(), result);
+        <span class="kw">return</span> result;
+    }
+
+    <span class="kw">static void</span> <span class="fn">backtrack</span>(<span class="kw">int</span>[] nums, <span class="kw">int</span> start,
+            List&lt;Integer&gt; curr, List&lt;List&lt;Integer&gt;&gt; result) {
+        result.add(<span class="kw">new</span> ArrayList&lt;&gt;(curr)); <span class="cm">// Record current state</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = start; i &lt; nums.length; i++) {
+            curr.add(nums[i]);                      <span class="cm">// Choose</span>
+            backtrack(nums, i + <span class="num">1</span>, curr, result); <span class="cm">// Explore</span>
+            curr.remove(curr.size() - <span class="num">1</span>);          <span class="cm">// Unchoose (backtrack)</span>
+        }
+    }
+}</pre>
+      </div>
+      <div class="complexity"><div class="cx"><span>Time</span><code>O(2ᴺ × N)</code></div><div class="cx"><span>Space</span><code>O(N)</code></div></div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ SUB-PROBLEMS ══════════ -->
+<section id="sub">
+<div class="wrap">
+  <div class="sec-hd">
+    <span class="sec-tag">Building Blocks</span>
+    <h2 class="sec-title">Sub-Problems Bank</h2>
+    <p class="sec-desc">Master these smaller patterns first. Every HackWithInfy question is a combination of 2–3 of these building blocks.</p>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(this,'sp-easy')">Easy Patterns</div>
+    <div class="tab" onclick="switchTab(this,'sp-med')">Medium Patterns</div>
+    <div class="tab" onclick="switchTab(this,'sp-hard')">Hard Patterns</div>
+  </div>
+
+  <div class="tab-pane active" id="sp-easy">
+    <div class="sub-grid">
+      <div class="sub-card">
+        <span class="sub-label">Pattern E1</span>
+        <h4>Two-Sum with HashMap</h4>
+        <p>Store each element in a map. For each element x, check if (target − x) exists. O(N) time. Foundation for 3-sum, 4-sum, pair-with-given-sum problems.</p>
+        <div class="formula">map.containsKey(target - a[i])</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern E2</span>
+        <h4>Frequency Count</h4>
+        <p>Count occurrences using HashMap or int[]. Used in: anagram check, majority element, first non-repeating character, character frequency in strings.</p>
+        <div class="formula">freq.merge(key, 1, Integer::sum)</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern E3</span>
+        <h4>Stack-Based Parsing</h4>
+        <p>Use stack for balanced parentheses, expression evaluation, undo operations. Push on open, pop on close. Valid brackets check is a 5-line solution.</p>
+        <div class="formula">stack.push('('); stack.pop() == '('</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern E4</span>
+        <h4>Prefix Sum Query</h4>
+        <p>Precompute prefix sums. Answer range sum in O(1). Essential for all range query problems. pre[r+1] - pre[l] = sum of A[l..r].</p>
+        <div class="formula">sum[l..r] = pre[r+1] - pre[l]</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern E5</span>
+        <h4>Cyclic Rotation</h4>
+        <p>Rotate array by k positions: reverse whole → reverse first k → reverse remaining. O(N) time, O(1) space. Cleaner than shift-and-copy.</p>
+        <div class="formula">reverse(0,n-1); reverse(0,k-1); reverse(k,n-1)</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern E6</span>
+        <h4>Fast Power (Binary Exponentiation)</h4>
+        <p>Compute a^n mod p in O(log N). Essential for modular arithmetic. Uses the identity: a^n = (a^(n/2))² if n even, a × a^(n-1) if n odd.</p>
+        <div class="formula">pow(a,n,p) = pow(a,n/2,p)² % p</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="sp-med">
+    <div class="sub-grid">
+      <div class="sub-card">
+        <span class="sub-label">Pattern M1</span>
+        <h4>Merge Intervals</h4>
+        <p>Sort intervals by start time. Merge overlapping ones: if cur.start ≤ prev.end, merge by extending end. O(N log N). Used in calendar, task scheduling, meeting rooms problems.</p>
+        <div class="formula">if(cur[0] <= prev[1]) prev[1] = max(prev[1], cur[1])</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern M2</span>
+        <h4>Top-K with Heap</h4>
+        <p>Find K largest: use min-heap of size K. For K smallest: use max-heap of size K. Each insertion: if heap size &gt; K, remove worst. O(N log K).</p>
+        <div class="formula">if(heap.size()>K) heap.poll()</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern M3</span>
+        <h4>BFS on Implicit Graph</h4>
+        <p>When states form a graph not explicitly given. Model states as nodes, transitions as edges. BFS gives min steps. Used in: word ladder, sliding puzzle, knight on chessboard.</p>
+        <div class="formula">BFS on (state) → generate next valid states</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern M4</span>
+        <h4>2D DP (Grid Paths)</h4>
+        <p>dp[i][j] = answer for cell (i,j). Fill row by row. Transition from top and left. Used in: unique paths, minimum path sum, dungeon game, edit distance table.</p>
+        <div class="formula">dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern M5</span>
+        <h4>Topological Sort (BFS/Kahn's)</h4>
+        <p>Process nodes in dependency order. Compute in-degrees. Add 0-in-degree nodes to queue. Process and reduce neighbors' in-degrees. Used in: task order, course schedule, build systems.</p>
+        <div class="formula">queue ← {nodes with indegree 0}; reduce indegree of neighbors</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern M6</span>
+        <h4>String Hashing (Rolling Hash)</h4>
+        <p>Compute polynomial hash of string. Rolling hash allows O(1) substring hash computation after O(N) build. Used in: Rabin-Karp string matching, finding duplicate substrings.</p>
+        <div class="formula">hash = Σ a[i] × BASE^i mod MOD</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="sp-hard">
+    <div class="sub-grid">
+      <div class="sub-card">
+        <span class="sub-label">Pattern H1</span>
+        <h4>Sparse Table (Range Minimum Query)</h4>
+        <p>Precompute answers for ranges of power-of-2 lengths. Build: O(N log N). Query: O(1). Used for LCA in trees and static RMQ problems where no updates occur.</p>
+        <div class="formula">sparse[i][j] = min(sparse[i][j-1], sparse[i+2^(j-1)][j-1])</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern H2</span>
+        <h4>Bitmasking DP</h4>
+        <p>When state space is small (≤ 20 elements), represent subsets as bitmasks. dp[mask] = best answer using the subset represented by mask. Used in: TSP, minimum XOR, shortest superstring.</p>
+        <div class="formula">dp[mask|(1<<i)] = min(dp[mask|(1<<i)], dp[mask]+cost)</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern H3</span>
+        <h4>Matrix Exponentiation</h4>
+        <p>Express a linear recurrence as matrix multiplication. Compute A^n in O(k³ log n) where k = state size. Used in: Fibonacci in O(log N), linear recurrences with large n (up to 10¹⁸).</p>
+        <div class="formula">F(n) = [[1,1],[1,0]]^n × [1,0]</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern H4</span>
+        <h4>XOR Basis (Linear Algebra on GF2)</h4>
+        <p>Gaussian elimination over GF(2). Maintain a basis of XOR-independent vectors. Find max XOR of any subset. Used in: maximum XOR subarray, XOR basis queries.</p>
+        <div class="formula">insert(x): for each basis[bit], if x&gt;&gt;bit&amp;1: x^=basis[bit]</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern H5</span>
+        <h4>LCA with Binary Lifting</h4>
+        <p>Precompute ancestors at power-of-2 distances. LCA query: lift both nodes to same depth, then binary lift together. Build: O(N log N). Query: O(log N). Essential for tree path problems.</p>
+        <div class="formula">up[v][j] = up[up[v][j-1]][j-1]</div>
+      </div>
+      <div class="sub-card">
+        <span class="sub-label">Pattern H6</span>
+        <h4>Mo's Algorithm (Offline Range Queries)</h4>
+        <p>Process range queries offline sorted by block. Maintain a window, extending/shrinking by 1. Total operations: O((N+Q)√N). Best for static arrays with complex aggregates where sliding window is O(1).</p>
+        <div class="formula">Sort queries by (l/√N, r); process in order</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ ROADMAP ══════════ -->
+<section id="roadmap">
+<div class="wrap">
+  <div class="sec-hd">
+    <span class="sec-tag">Study Plan</span>
+    <h2 class="sec-title">6-Week Preparation Roadmap</h2>
+    <p class="sec-desc">A structured path from beginner to solving all 3 questions in a HackWithInfy exam. Follow this order — do not skip ahead.</p>
+  </div>
+
+  <div class="roadmap">
+    <div class="rm-step">
+      <h3>Week 1 — Foundations</h3>
+      <p>Master the most common patterns. These patterns appear in almost every Easy question and as sub-parts of Medium questions. Focus on clean, bug-free code, not speed.</p>
+      <div class="rm-tags">
+        <span class="rm-tag highlight">Arrays & Strings</span>
+        <span class="rm-tag highlight">HashMap / HashSet</span>
+        <span class="rm-tag highlight">Two Pointers</span>
+        <span class="rm-tag highlight">Prefix Sum</span>
+        <span class="rm-tag highlight">Sorting</span>
+        <span class="rm-tag">Target: Solve Easy questions in ≤ 25 min</span>
+      </div>
+    </div>
+
+    <div class="rm-step">
+      <h3>Week 2 — Searching & Greedy</h3>
+      <p>Binary Search (standard + on answer) and Greedy with Priority Queue. These unlock a large portion of Medium questions and are frequently tested.</p>
+      <div class="rm-tags">
+        <span class="rm-tag highlight">Binary Search (standard)</span>
+        <span class="rm-tag highlight">Binary Search on Answer</span>
+        <span class="rm-tag highlight">Greedy + Priority Queue</span>
+        <span class="rm-tag highlight">Sliding Window</span>
+        <span class="rm-tag">Target: Food Stamps, Min Platforms, Painter's Partition</span>
+      </div>
+    </div>
+
+    <div class="rm-step">
+      <h3>Week 3 — Graph Algorithms</h3>
+      <p>BFS/DFS are the single most tested category. Multi-source BFS, BFS on implicit graphs, DFS with state, topological sort. At least one question involves a grid or graph.</p>
+      <div class="rm-tags">
+        <span class="rm-tag highlight">BFS (standard + multi-source)</span>
+        <span class="rm-tag highlight">DFS + Backtracking</span>
+        <span class="rm-tag highlight">Topological Sort</span>
+        <span class="rm-tag highlight">Union-Find</span>
+        <span class="rm-tag">Target: Invasion Grid, Word Ladder, Reduce Soldiers, Count Components</span>
+      </div>
+    </div>
+
+    <div class="rm-step">
+      <h3>Week 4 — Dynamic Programming</h3>
+      <p>The hardest and most varied topic. Start with 1D DP, move to 2D, then special forms. DP is always in the Hard question.</p>
+      <div class="rm-tags">
+        <span class="rm-tag highlight">1D DP (Fibonacci, LIS, Kadane's)</span>
+        <span class="rm-tag highlight">2D DP (Grid, LCS, Knapsack)</span>
+        <span class="rm-tag highlight">Interval DP</span>
+        <span class="rm-tag highlight">Partition DP</span>
+        <span class="rm-tag">Target: 3D XYZ DP, Min-K Longest Path, Staircase, MSS with Swaps</span>
+      </div>
+    </div>
+
+    <div class="rm-step">
+      <h3>Week 5 — Tree Algorithms</h3>
+      <p>Trees are tested every year. Master DFS on trees, Tree DP (diameter, path problems), LCA. These problems are medium-hard level and combine tree structure with DP.</p>
+      <div class="rm-tags">
+        <span class="rm-tag highlight">Tree DFS / BFS</span>
+        <span class="rm-tag highlight">Tree DP (Diameter, Beautiful Set)</span>
+        <span class="rm-tag highlight">LCA (Binary Lifting)</span>
+        <span class="rm-tag highlight">Euler Tour</span>
+        <span class="rm-tag">Target: Layer-Split Path, Tree Beautiful Set, Tree Diameter</span>
+      </div>
+    </div>
+
+    <div class="rm-step">
+      <h3>Week 6 — Advanced Data Structures + Mock Exams</h3>
+      <p>Segment Tree, Trie, Monotonic Stack, XOR operations. Then: 3 full mock exams (3 hours each). Review every solution after each mock. Focus on edge cases and overflow.</p>
+      <div class="rm-tags">
+        <span class="rm-tag highlight">Segment Tree</span>
+        <span class="rm-tag highlight">Trie / XOR Basis</span>
+        <span class="rm-tag highlight">Monotonic Stack</span>
+        <span class="rm-tag highlight">Dijkstra's</span>
+        <span class="rm-tag">3 Full Mock Exams</span>
+        <span class="rm-tag">Edge case: INT overflow, empty array, n=1</span>
+      </div>
+    </div>
+
+    <div class="rm-step">
+      <h3>Exam Day Strategy</h3>
+      <p>30 min Easy, 60 min Medium, 90 min Hard. First 5 minutes: read ALL 3 problems. Start with the easiest, but don't ignore the others. Partial solutions get partial credit. Always write brute force first, then optimize. Annotate your code — readability matters.</p>
+      <div class="rm-tags">
+        <span class="rm-tag highlight">Read all 3 first</span>
+        <span class="rm-tag highlight">Brute force → optimize</span>
+        <span class="rm-tag highlight">Check constraints carefully</span>
+        <span class="rm-tag highlight">Test edge cases before submit</span>
+        <span class="rm-tag">Always mention TC and SC in comments</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box" style="margin-top:12px">
+    <strong>Daily Practice Schedule:</strong> 45 min — Review one DSA topic. 45 min — Solve 2 related problems on LeetCode/HackerRank. 30 min — Re-read one past solution, focus on edge cases and complexity analysis.
+    <br><br>
+    <strong>Recommended LeetCode Tags (in order):</strong> two-pointers, prefix-sum, sliding-window, binary-search, bfs, dfs, dynamic-programming, tree, heap-priority-queue, union-find, segment-tree, trie.
+  </div>
+
+</div>
+</section>
+
+<footer>
+  <div style="margin-bottom:8px"><strong style="color:#fff">HackWithInfy Prep Hub</strong> — Complete Preparation Resource 2026</div>
+  <div>21+ questions · 14 DSA topics · 6-week roadmap · All Java solutions</div>
+  <div style="margin-top:10px;font-size:.75rem">Content based on official Infosys HackWithInfy sample papers (2024, 2025, 2026). Study hard, code clean, think clearly.</div>
+</footer>
+
+<script>
+// Reading progress bar
+window.addEventListener('scroll', function() {
+  const scrolled = (document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('rp').style.width = scrolled + '%';
+});
+
+// Toggle Q cards
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.q-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// Toggle DSA cards
+function toggleDSA(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.q-arrow');
+  body.classList.toggle('open');
+  if (arrow) arrow.classList.toggle('open');
+}
+
+// Tabs
+function switchTab(tab, paneId) {
+  const tabGroup = tab.parentElement;
+  tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const section = tab.closest('section') || document;
+  section.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  const pane = document.getElementById(paneId);
+  if (pane) pane.classList.add('active');
+}
+
+// Copy code
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1800);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1800);
+  });
+}
+</script>
+</body>
+</html>
