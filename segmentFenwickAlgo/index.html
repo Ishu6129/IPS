@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segment Tree & Fenwick Tree</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+/* ── LIGHT ── */
+:root{
+  --bg:#f8f8f8; --surface:#fff; --border:#e4e4e7; --border2:#d1d5db;
+  --ink:#18181b; --ink2:#27272a; --mid:#52525b; --muted:#a1a1aa;
+  --chip:#f0f0f1; --sidebar:#18181b; --hero:#111;
+  --accent:#6366f1;
+  --easy-bg:#f0fdf4;--easy-txt:#166534;--easy-bd:#bbf7d0;
+  --med-bg:#fefce8;--med-txt:#854d0e;--med-bd:#fde68a;
+  --hard-bg:#18181b;--hard-txt:#fff;--hard-bd:#18181b;
+  --bar-fill:#6366f1;
+  --concept-l:#6366f1;
+  --tag-done-bg:#dcfce7;--tag-done-txt:#15803d;
+}
+html.dark{
+  --bg:#0d0d10; --surface:#18181b; --border:#27272a; --border2:#3f3f46;
+  --ink:#f1f1f3; --ink2:#e4e4e7; --mid:#a1a1aa; --muted:#52525b;
+  --chip:#27272a; --sidebar:#09090b; --hero:#07070a;
+  --accent:#818cf8;
+  --easy-bg:#052e16;--easy-txt:#86efac;--easy-bd:#166534;
+  --med-bg:#1c1003;--med-txt:#fcd34d;--med-bd:#78350f;
+  --hard-bg:#e4e4e7;--hard-txt:#18181b;--hard-bd:#d1d5db;
+  --bar-fill:#818cf8;
+  --concept-l:#818cf8;
+  --tag-done-bg:#052e16;--tag-done-txt:#86efac;
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;transition:background .2s,color .2s}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+
+/* ── TOP BAR ── */
+#tbar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--border);z-index:300}
+#tbar-fill{height:100%;width:0%;background:var(--bar-fill);transition:width .4s}
+
+/* ── SIDEBAR ── */
+.sb{position:fixed;left:0;top:0;bottom:0;width:232px;background:var(--sidebar);display:flex;flex-direction:column;z-index:200;overflow-y:auto;transition:background .2s}
+.sb::-webkit-scrollbar{width:0}
+.sb-top{padding:24px 18px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-logo{font-size:1rem;font-weight:700;color:#fff;line-height:1.3;letter-spacing:-.2px}
+.sb-sub{font-size:.68rem;color:rgba(255,255,255,.3);margin-top:3px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.sb-prog{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-prog-row{display:flex;justify-content:space-between;margin-bottom:7px}
+.sb-prog-lbl{font-size:.68rem;color:rgba(255,255,255,.3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.8px}
+.sb-prog-val{font-size:.75rem;color:#fff;font-family:'JetBrains Mono',monospace;font-weight:600}
+.sb-track{height:3px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden}
+.sb-fill{height:100%;width:0%;background:var(--bar-fill);border-radius:10px;transition:width .4s}
+.sb-sect{padding:14px 18px 4px;font-size:.65rem;font-weight:600;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:1.5px;font-family:'JetBrains Mono',monospace}
+.sb-hr{height:1px;background:rgba(255,255,255,.07);margin:6px 0}
+.nav-a{display:flex;align-items:center;gap:9px;padding:8px 18px;text-decoration:none;color:rgba(255,255,255,.4);font-size:.8rem;font-weight:500;transition:all .15s;border-left:2px solid transparent}
+.nav-a:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.04)}
+.nav-a.on{color:#fff;border-left-color:var(--bar-fill);background:rgba(255,255,255,.06)}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;opacity:.6}
+.nav-n{margin-left:auto;font-size:.65rem;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.2);background:rgba(255,255,255,.06);padding:1px 6px;border-radius:8px}
+.nav-a.on .nav-n{color:rgba(255,255,255,.45)}
+
+/* ── THEME TOGGLE IN SIDEBAR BOTTOM ── */
+.sb-footer{padding:14px 18px;margin-top:auto;border-top:1px solid rgba(255,255,255,.07)}
+.theme-btn{width:100%;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:9px 14px;cursor:pointer;color:rgba(255,255,255,.6);font-size:.8rem;font-family:'Inter',sans-serif;font-weight:500;transition:all .15s}
+.theme-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.theme-icon{font-size:1rem}
+
+/* ── MAIN ── */
+.main{margin-left:232px;min-height:100vh}
+
+/* ── HERO ── */
+.hero{background:var(--hero);color:#fff;padding:52px 60px 44px;position:relative}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.5px}
+.hero h1 .fade{color:rgba(255,255,255,.4);font-weight:400}
+.hero-desc{margin-top:14px;font-size:.9rem;color:rgba(255,255,255,.5);max-width:480px;line-height:1.7}
+.hero-stats{display:flex;gap:0;flex-wrap:wrap;margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.08)}
+.h-stat{padding-right:36px;border-right:1px solid rgba(255,255,255,.07);margin-right:36px}
+.h-stat:last-child{border-right:none}
+.h-stat .v{font-size:1.8rem;font-weight:700;color:#fff;line-height:1;font-family:'JetBrains Mono',monospace;letter-spacing:-1px}
+.h-stat .k{font-size:.7rem;color:rgba(255,255,255,.3);margin-top:4px;text-transform:uppercase;letter-spacing:.8px}
+
+/* ── SCHEDULE BANNER ── */
+.schedule{background:var(--surface);border-bottom:1px solid var(--border);padding:28px 60px}
+.sch-title{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sch-title h2{font-size:.95rem;font-weight:700;color:var(--ink)}
+.sch-title .sch-sub{font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.sch-blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sch-block{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg)}
+.sch-bhead{padding:10px 14px;background:var(--chip);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.sch-bnum{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;color:var(--surface);background:var(--ink);padding:2px 7px;border-radius:4px}
+.sch-btitle{font-size:.8rem;font-weight:700;color:var(--ink)}
+.sch-btime{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);white-space:nowrap}
+.sch-bbody{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.sch-item{display:flex;flex-direction:column;gap:3px}
+.sch-item-title{font-size:.78rem;font-weight:600;color:var(--ink);line-height:1.3}
+.sch-item-desc{font-size:.72rem;color:var(--mid);line-height:1.5}
+.sch-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
+.stag{font-family:'JetBrains Mono',monospace;font-size:.62rem;padding:1px 6px;border-radius:3px;border:1px solid}
+.stag-p{color:var(--accent);background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.25)}
+.stag-n{color:var(--mid);background:var(--chip);border-color:var(--border)}
+.stag-h{color:var(--easy-txt);background:var(--easy-bg);border-color:var(--easy-bd)}
+.sch-tip{grid-column:1/-1;padding:10px 16px;background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.18);border-radius:8px;font-size:.78rem;color:var(--mid);line-height:1.55}
+.sch-tip strong{color:var(--ink)}
+html.dark .sch-tip{background:rgba(129,140,248,.06);border-color:rgba(129,140,248,.18)}
+
+/* ── FILTER BAR ── */
+.fbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:0 60px;display:flex;align-items:center;gap:2px;overflow-x:auto;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.fbar::-webkit-scrollbar{height:0}
+.ftab{padding:13px 15px;font-size:.75rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all .15s;user-select:none}
+.ftab:hover{color:var(--ink2)}
+.ftab.on{color:var(--ink);border-bottom-color:var(--accent)}
+.fsep{width:1px;height:16px;background:var(--border);margin:0 6px;flex-shrink:0}
+
+/* ── SECTION HEADER ── */
+.sec-head{background:var(--hero);padding:28px 60px;display:flex;align-items:center;gap:20px}
+.sec-icon{width:44px;height:44px;background:rgba(255,255,255,.07);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.sec-txt h2{font-size:1.2rem;font-weight:700;color:#fff;letter-spacing:-.2px}
+.sec-txt p{font-size:.8rem;color:rgba(255,255,255,.45);margin-top:3px;max-width:460px;line-height:1.6}
+.sec-txt code{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(255,255,255,.1);padding:1px 5px;border-radius:3px}
+.sec-badge{margin-left:auto;flex-shrink:0;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 18px}
+.sec-badge .bn{font-size:1.4rem;font-weight:700;color:#fff;font-family:'JetBrains Mono',monospace;line-height:1}
+.sec-badge .bs{font-size:.65rem;color:rgba(255,255,255,.3);margin-top:2px;text-transform:uppercase;letter-spacing:.8px}
+
+/* ── PHASE BLOCK ── */
+.phase{background:var(--bg);border-bottom:1px solid var(--border)}
+.ph{padding:28px 60px 0;display:flex;align-items:flex-start;gap:16px}
+.ph-num{flex-shrink:0;width:36px;height:36px;border-radius:8px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:700;margin-top:3px}
+.ph-info{flex:1}
+.ph-lvl{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:600;color:var(--mid);background:var(--chip);border:1px solid var(--border);border-radius:5px;padding:2px 9px;margin-bottom:8px}
+.ph-info h3{font-size:1.1rem;font-weight:700;color:var(--ink);letter-spacing:-.2px;line-height:1.3}
+.ph-info .ph-desc{font-size:.84rem;color:var(--mid);margin-top:5px;line-height:1.65;max-width:580px}
+.ph-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.pchip{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--mid);background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:2px 9px}
+.ph-cnt{flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:5px 10px;margin-top:3px;white-space:nowrap}
+
+/* ── CONCEPT BOX ── */
+.cbox{margin:16px 60px 0;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--concept-l);border-radius:0 8px 8px 0}
+.cbox-lbl{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.cbox p{font-size:.84rem;color:var(--mid);line-height:1.7}
+.cbox code{font-family:'JetBrains Mono',monospace;font-size:.78rem;background:var(--chip);border:1px solid var(--border);padding:1px 5px;border-radius:3px;color:var(--ink)}
+
+/* ── PROBLEM CARDS ── */
+.plist{padding:16px 60px 28px;display:flex;flex-direction:column;gap:7px}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:14px 16px;display:flex;align-items:center;gap:14px;transition:border-color .15s,box-shadow .15s}
+.pcard:hover{border-color:var(--border2);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.pcard.solved{background:var(--chip);opacity:.75}
+.pcard.solved .pname{text-decoration:line-through;color:var(--muted)}
+
+.cb{width:20px;height:20px;flex-shrink:0;border:2px solid var(--border2);border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--surface)}
+.cb:hover{border-color:var(--ink)}
+.cb.done{background:var(--ink);border-color:var(--ink)}
+.cb.done::after{content:'✓';color:var(--bg);font-size:11px;font-weight:700}
+
+.pid{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);min-width:56px;flex-shrink:0}
+.pmain{flex:1;min-width:0}
+.pname{font-size:.9rem;font-weight:600;color:var(--ink);line-height:1.35}
+.ptags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--muted);background:var(--chip);border:1px solid var(--border);border-radius:3px;padding:1px 6px}
+
+.dpill{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:5px;flex-shrink:0;white-space:nowrap}
+.de{background:var(--easy-bg);color:var(--easy-txt);border:1px solid var(--easy-bd)}
+.dm{background:var(--med-bg);color:var(--med-txt);border:1px solid var(--med-bd)}
+.dh{background:var(--hard-bg);color:var(--hard-txt);border:1px solid var(--hard-bd)}
+
+.plnks{display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.pl{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:500;padding:4px 10px;border-radius:5px;text-decoration:none;border:1px solid;transition:all .15s;white-space:nowrap}
+.pl:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lc{color:#92400e;border-color:#fde68a;background:#fffbeb}
+.gf{color:#14532d;border-color:#bbf7d0;background:#f0fdf4}
+html.dark .lc{color:#fcd34d;border-color:#78350f;background:#1c1003}
+html.dark .gf{color:#86efac;border-color:#166534;background:#052e16}
+
+/* ── TIME BADGE on phase ── */
+.time-badge{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--accent);background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:4px;padding:2px 8px;margin-left:8px}
+html.dark .time-badge{background:rgba(129,140,248,.08);border-color:rgba(129,140,248,.2)}
+
+/* ── BOTTOM BAR ── */
+.botbar{position:fixed;bottom:0;left:232px;right:0;background:var(--hero);padding:10px 28px;display:flex;align-items:center;gap:16px;z-index:100;border-top:1px solid rgba(255,255,255,.07)}
+.bb-lbl{font-size:.72rem;color:rgba(255,255,255,.35);white-space:nowrap}
+.bb-cnt{font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:600;color:#fff;white-space:nowrap}
+.bb-cnt span{color:rgba(255,255,255,.25)}
+.bb-track{flex:1;height:4px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden}
+.bb-fill{height:100%;width:0%;background:var(--bar-fill);border-radius:10px;transition:width .4s}
+.bb-pct{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:rgba(255,255,255,.3);min-width:34px}
+
+.endspc{height:64px}
+.hidden{display:none!important}
+
+/* ── SAVE TOAST ── */
+.toast{
+  position:fixed;bottom:56px;right:20px;
+  background:var(--ink);color:var(--bg);
+  font-size:.72rem;font-family:'JetBrains Mono',monospace;
+  padding:6px 14px;border-radius:6px;
+  opacity:0;transform:translateY(6px);
+  transition:opacity .2s,transform .2s;
+  pointer-events:none;z-index:500;
+}
+.toast.show{opacity:1;transform:translateY(0)}
+
+@media(max-width:860px){
+  .sb{display:none}.main{margin-left:0}.botbar{left:0}
+  .sch-blocks{grid-template-columns:1fr}
+  .hero,.schedule,.fbar,.sec-head,.ph,.cbox,.plist{padding-left:16px;padding-right:16px}
+}
+</style>
+</head>
+<body>
+<div id="tbar"><div id="tbar-fill"></div></div>
+
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="sb-top">
+    <div class="sb-logo">6-Hour DSA Sprint</div>
+    <div class="sb-sub">Seg Tree + Fenwick Tree</div>
+  </div>
+  <div class="sb-prog">
+    <div class="sb-prog-row">
+      <span class="sb-prog-lbl">Progress</span>
+      <span class="sb-prog-val" id="sbval">0 / 30</span>
+    </div>
+    <div class="sb-track"><div class="sb-fill" id="sbfill"></div></div>
+  </div>
+
+  <div class="sb-sect">⏱ Schedule</div>
+  <a class="nav-a" href="#plan"><div class="nav-dot"></div>6-Hour Plan</a>
+
+  <div class="sb-sect">🌲 Segment Tree</div>
+  <a class="nav-a" href="#st1"><div class="nav-dot"></div>Phase 1 · Basics<span class="nav-n">4</span></a>
+  <a class="nav-a" href="#st2"><div class="nav-dot"></div>Phase 2 · Patterns<span class="nav-n">5</span></a>
+  <a class="nav-a" href="#st3"><div class="nav-dot"></div>Phase 3 · Lazy Prop<span class="nav-n">4</span></a>
+  <a class="nav-a" href="#st4"><div class="nav-dot"></div>Phase 4 · Advanced<span class="nav-n">4</span></a>
+
+  <div class="sb-hr"></div>
+  <div class="sb-sect">🌿 Fenwick (BIT)</div>
+  <a class="nav-a" href="#bit1"><div class="nav-dot"></div>Phase 1 · Core<span class="nav-n">4</span></a>
+  <a class="nav-a" href="#bit2"><div class="nav-dot"></div>Phase 2 · Counting<span class="nav-n">4</span></a>
+  <a class="nav-a" href="#bit3"><div class="nav-dot"></div>Phase 3 · Advanced<span class="nav-n">5</span></a>
+
+  <div class="sb-footer">
+    <button class="theme-btn" onclick="toggleTheme()">
+      <span class="theme-icon" id="ticon">🌙</span>
+      <span id="tlabel">Dark Mode</span>
+    </button>
+    <button class="theme-btn" onclick="resetProgress()" style="margin-top:8px;color:rgba(255,100,100,.7);border-color:rgba(255,100,100,.2)">
+      <span style="font-size:.9rem">🗑️</span>
+      <span>Reset Progress</span>
+    </button>
+  </div>
+</aside>
+
+<main class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Curated Sprint · Beginner → Pro · 2025</div>
+  <div class="hero-top">
+    <div>
+      <h1>Crack Segment Tree<br><span class="fade">&amp; Fenwick Tree</span><br><span class="fade" style="font-size:.65em;letter-spacing:0">in Just 6 Hours</span></h1>
+      <p class="hero-desc">30 hand-picked problems — the minimum effective dose to go from zero to interview-ready. Every phase timed so you finish in one focused session.</p>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="h-stat"><div class="v">30</div><div class="k">Problems</div></div>
+    <div class="h-stat"><div class="v">6</div><div class="k">Hours</div></div>
+    <div class="h-stat"><div class="v">7</div><div class="k">Phases</div></div>
+    <div class="h-stat"><div class="v">2</div><div class="k">Structures</div></div>
+  </div>
+</div>
+
+<!-- 6-HOUR SCHEDULE -->
+<div class="schedule" id="plan">
+  <div class="sch-title">
+    <span style="font-size:1.1rem">⚡</span>
+    <h2>Your 6-Hour Battle Plan</h2>
+    <span class="sch-sub">— follow this order exactly, don't skip phases</span>
+  </div>
+  <div class="sch-blocks">
+
+    <div class="sch-block">
+      <div class="sch-bhead">
+        <div class="sch-bnum">Hr 1</div>
+        <div class="sch-btitle">Seg Tree Core</div>
+        <div class="sch-btime">0:00 – 1:00</div>
+      </div>
+      <div class="sch-bbody">
+        <div class="sch-item">
+          <div class="sch-item-title">Build the template from scratch</div>
+          <div class="sch-item-desc">Watch a 20-min video. Then code build(), query(), update() from memory. Use 4×N array.</div>
+          <div class="sch-tags"><span class="stag stag-p">Phase 1</span><span class="stag stag-n">4 problems</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sch-block">
+      <div class="sch-bhead">
+        <div class="sch-bnum">Hr 2</div>
+        <div class="sch-btitle">Merge Function Swap</div>
+        <div class="sch-btime">1:00 – 2:00</div>
+      </div>
+      <div class="sch-bbody">
+        <div class="sch-item">
+          <div class="sch-item-title">XOR, inversions, LIS with seg tree</div>
+          <div class="sch-item-desc">Same template — different node data. Ask "what do I store?" before coding each.</div>
+          <div class="sch-tags"><span class="stag stag-p">Phase 2</span><span class="stag stag-n">5 problems</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sch-block">
+      <div class="sch-bhead">
+        <div class="sch-bnum">Hr 3</div>
+        <div class="sch-btitle">Lazy Propagation</div>
+        <div class="sch-btime">2:00 – 3:00</div>
+      </div>
+      <div class="sch-bbody">
+        <div class="sch-item">
+          <div class="sch-item-title">Pushdown before accessing children</div>
+          <div class="sch-item-desc">The #1 technique unlock. Solve range-add template first, then hard problems.</div>
+          <div class="sch-tags"><span class="stag stag-p">Phase 3</span><span class="stag stag-h">Key Phase</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sch-block">
+      <div class="sch-bhead">
+        <div class="sch-bnum">Hr 4</div>
+        <div class="sch-btitle">Advanced ST + BIT Core</div>
+        <div class="sch-btime">3:00 – 4:00</div>
+      </div>
+      <div class="sch-bbody">
+        <div class="sch-item">
+          <div class="sch-item-title">Hard seg tree + start Fenwick</div>
+          <div class="sch-item-desc">Skyline + Rectangle Area II. Then learn BIT 10-line template. Memorize i&amp;(-i).</div>
+          <div class="sch-tags"><span class="stag stag-p">Phase 4 + BIT 1</span><span class="stag stag-n">8 problems</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sch-block">
+      <div class="sch-bhead">
+        <div class="sch-bnum">Hr 5</div>
+        <div class="sch-btitle">BIT Counting Patterns</div>
+        <div class="sch-btime">4:00 – 5:00</div>
+      </div>
+      <div class="sch-bbody">
+        <div class="sch-item">
+          <div class="sch-item-title">Value-indexed BIT + coord compress</div>
+          <div class="sch-item-desc">Right-to-left sweep pattern. LC #315, #493 are interview gold — solve both.</div>
+          <div class="sch-tags"><span class="stag stag-p">BIT Phase 2</span><span class="stag stag-h">Interview hot</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sch-block">
+      <div class="sch-bhead">
+        <div class="sch-bnum">Hr 6</div>
+        <div class="sch-btitle">Advanced BIT + Review</div>
+        <div class="sch-btime">5:00 – 6:00</div>
+      </div>
+      <div class="sch-bbody">
+        <div class="sch-item">
+          <div class="sch-item-title">2D BIT + revisit hardest problems</div>
+          <div class="sch-item-desc">Range update tricks, 2D Fenwick. Last 20 mins: reattempt any skipped problems.</div>
+          <div class="sch-tags"><span class="stag stag-p">BIT Phase 3</span><span class="stag stag-n">Consolidate</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sch-tip">
+      <strong>⚡ Ground Rules:</strong> If you're stuck for &gt;15 mins — read the editorial, understand it, move on. Speed matters today. Mark solved problems as you go. At the end, your goal is: <strong>code both templates from memory</strong> and <strong>know when to use which</strong>.
+    </div>
+
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="fbar">
+  <div class="ftab on" onclick="fAll(this)">All</div>
+  <div class="fsep"></div>
+  <div class="ftab" onclick="fTopic('seg',this)">Seg Tree</div>
+  <div class="ftab" onclick="fTopic('bit',this)">Fenwick</div>
+  <div class="fsep"></div>
+  <div class="ftab" onclick="fDiff('e',this)">Easy</div>
+  <div class="ftab" onclick="fDiff('m',this)">Medium</div>
+  <div class="ftab" onclick="fDiff('h',this)">Hard</div>
+  <div class="fsep"></div>
+  <div class="ftab" onclick="fUnsolved(this)">Unsolved</div>
+</div>
+
+
+<!-- ════════ SEGMENT TREE ════════ -->
+<div class="sec-head" data-topic="seg">
+  <div class="sec-icon">🌲</div>
+  <div class="sec-txt">
+    <h2>Segment Tree</h2>
+    <p>Range queries + point/range updates in O(log N). Stored as an array of size 4N. The most powerful general-purpose range structure in competitive programming.</p>
+  </div>
+  <div class="sec-badge"><div class="bn">17</div><div class="bs">problems</div></div>
+</div>
+
+
+<!-- ── ST PHASE 1 ── -->
+<div class="phase" id="st1" data-topic="seg">
+  <div class="ph">
+    <div class="ph-num">01</div>
+    <div class="ph-info">
+      <div class="ph-lvl">🟢 Beginner <span class="time-badge">⏱ Hour 1</span></div>
+      <h3>Core Template — Build, Query, Update</h3>
+      <p class="ph-desc">Master the 3 operations. Node <code>i</code> has children <code>2i</code> and <code>2i+1</code>. Build O(N), query O(log N), update O(log N). Write this from memory before moving forward.</p>
+      <div class="ph-chips"><span class="pchip">4N array</span><span class="pchip">O(N) build</span><span class="pchip">O(log N) query/update</span><span class="pchip">Sum · Min · Max</span></div>
+    </div>
+    <div class="ph-cnt">4 problems · ~50 min</div>
+  </div>
+  <div class="cbox">
+    <div class="cbox-lbl">💡 Concept</div>
+    <p>Build bottom-up. Query by splitting into O(log N) disjoint ranges. Update by walking root → leaf, rebuilding each ancestor. The merge function (sum/min/max/GCD) is the only thing that changes between problems. Everything else stays identical.</p>
+  </div>
+  <div class="plist">
+    <div class="pcard" data-d="e" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-01</div>
+      <div class="pmain"><div class="pname">Range Sum Query — Immutable <span style="color:var(--muted);font-weight:400;font-size:.8rem">(Warmup)</span></div><div class="ptags"><span class="ptag">prefix-sum</span><span class="ptag">warmup</span></div></div>
+      <span class="dpill de">Easy</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/range-sum-query-immutable/" target="_blank">LC #303</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/range-sum-query-immutable/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="e" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-02</div>
+      <div class="pmain"><div class="pname">Range Minimum Query (RMQ)</div><div class="ptags"><span class="ptag">range-min</span><span class="ptag">build</span></div></div>
+      <span class="dpill de">Easy</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/range-sum-query-mutable/" target="_blank">LC #307</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/range-minimum-query/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-03</div>
+      <div class="pmain"><div class="pname">Range Sum Query — Mutable ★ Must Solve</div><div class="ptags"><span class="ptag">point-update</span><span class="ptag">range-sum</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/range-sum-query-mutable/" target="_blank">LC #307</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/range-sum-queries-with-point-update/0" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="e" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-04</div>
+      <div class="pmain"><div class="pname">GCD of Array Range</div><div class="ptags"><span class="ptag">gcd</span><span class="ptag">merge-function</span></div></div>
+      <span class="dpill de">Easy</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/find-greatest-common-divisor-of-array/" target="_blank">LC #1979</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/gcd-of-an-array/1" target="_blank">GFG</a></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── ST PHASE 2 ── -->
+<div class="phase" id="st2" data-topic="seg">
+  <div class="ph">
+    <div class="ph-num">02</div>
+    <div class="ph-info">
+      <div class="ph-lvl">🟡 Beginner → Intermediate <span class="time-badge">⏱ Hour 2</span></div>
+      <h3>Merge Patterns — What Does Each Node Store?</h3>
+      <p class="ph-desc">Template stays the same. Node data changes. Before writing code, answer: "what property of a range do I need?" Then define your merge function around that.</p>
+      <div class="ph-chips"><span class="pchip">XOR</span><span class="pchip">Inversions</span><span class="pchip">LIS via seg tree</span><span class="pchip">Coord compress</span></div>
+    </div>
+    <div class="ph-cnt">5 problems · ~55 min</div>
+  </div>
+  <div class="cbox">
+    <div class="cbox-lbl">💡 Concept</div>
+    <p>The insight: a seg tree over <em>values</em> (not indices) with coordinate compression can answer "how many elements ≤ x in a range" in O(log N). This makes inversions, LIS, and counting problems trivial. Just compress values → update by inserting → query prefix counts.</p>
+  </div>
+  <div class="plist">
+    <div class="pcard" data-d="e" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-05</div>
+      <div class="pmain"><div class="pname">XOR Queries of a Subarray</div><div class="ptags"><span class="ptag">xor</span><span class="ptag">range-query</span></div></div>
+      <span class="dpill de">Easy</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/xor-queries-of-a-subarray/" target="_blank">LC #1310</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/xor-queries-of-a-subarray/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-06</div>
+      <div class="pmain"><div class="pname">Count Inversions in Array</div><div class="ptags"><span class="ptag">inversions</span><span class="ptag">coord-compress</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/global-and-local-inversions/" target="_blank">LC #775</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/inversion-of-array-1587115620/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-07</div>
+      <div class="pmain"><div class="pname">Longest Increasing Subsequence (Seg Tree O(N log N))</div><div class="ptags"><span class="ptag">LIS</span><span class="ptag">seg+dp</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank">LC #300</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/longest-increasing-subsequence-1587115620/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-08</div>
+      <div class="pmain"><div class="pname">My Calendar II — Double Booking</div><div class="ptags"><span class="ptag">intervals</span><span class="ptag">count-overlap</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/my-calendar-ii/" target="_blank">LC #731</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/my-calendar-ii/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-09</div>
+      <div class="pmain"><div class="pname">Count of Smaller Numbers After Self</div><div class="ptags"><span class="ptag">coord-compress</span><span class="ptag">freq-tree</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/count-of-smaller-numbers-after-self/" target="_blank">LC #315</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/count-smaller-elements/1" target="_blank">GFG</a></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── ST PHASE 3 ── -->
+<div class="phase" id="st3" data-topic="seg">
+  <div class="ph">
+    <div class="ph-num">03</div>
+    <div class="ph-info">
+      <div class="ph-lvl">🟠 Intermediate <span class="time-badge">⏱ Hour 3</span></div>
+      <h3>Lazy Propagation — Range Updates in O(log N)</h3>
+      <p class="ph-desc">One rule: <strong>pushdown before accessing children</strong>. Each node gets a lazy tag. When visiting a node, flush the tag to children first. This single idea unlocks 80% of hard seg tree problems.</p>
+      <div class="ph-chips"><span class="pchip">Lazy tag</span><span class="pchip">Pushdown pattern</span><span class="pchip">Range add / assign</span></div>
+    </div>
+    <div class="ph-cnt">4 problems · ~55 min</div>
+  </div>
+  <div class="cbox">
+    <div class="cbox-lbl">💡 Concept</div>
+    <p>When updating range [l,r], mark parent nodes with a pending lazy tag. When you later need to query a child, call <code>pushdown(node)</code> first to push the tag down. Both update and query remain O(log N). For multiple lazy types (add + multiply), define how they compose before coding.</p>
+  </div>
+  <div class="plist">
+    <div class="pcard" data-d="m" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-10</div>
+      <div class="pmain"><div class="pname">Range Add + Range Sum ★ Lazy Template</div><div class="ptags"><span class="ptag">lazy-prop</span><span class="ptag">must-solve</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/range-sum-query-mutable/" target="_blank">LC #307</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/range-update-point-query/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-11</div>
+      <div class="pmain"><div class="pname">Paint the Fence — Range Assign</div><div class="ptags"><span class="ptag">range-assign</span><span class="ptag">lazy</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/paint-fence/" target="_blank">LC #276</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/painting-the-fence4727/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-12</div>
+      <div class="pmain"><div class="pname">My Calendar III — K Booking Count</div><div class="ptags"><span class="ptag">lazy-prop</span><span class="ptag">intervals</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/my-calendar-iii/" target="_blank">LC #732</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/my-calendar-iii/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-13</div>
+      <div class="pmain"><div class="pname">Falling Squares</div><div class="ptags"><span class="ptag">lazy-prop</span><span class="ptag">coord-compress</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/falling-squares/" target="_blank">LC #699</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/falling-squares/1" target="_blank">GFG</a></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── ST PHASE 4 ── -->
+<div class="phase" id="st4" data-topic="seg">
+  <div class="ph">
+    <div class="ph-num">04</div>
+    <div class="ph-info">
+      <div class="ph-lvl">🔴 Advanced <span class="time-badge">⏱ Hour 4 — first 30 min</span></div>
+      <h3>Hard Applications — Sweep Line + Classic Problems</h3>
+      <p class="ph-desc">These are the famous Hard LC problems where seg tree is the key insight. If you can solve Skyline and Rectangle Area II, you've truly mastered the structure.</p>
+      <div class="ph-chips"><span class="pchip">Sweep line</span><span class="pchip">Coord compress</span><span class="pchip">2D problems</span></div>
+    </div>
+    <div class="ph-cnt">4 problems · ~40 min</div>
+  </div>
+  <div class="cbox">
+    <div class="cbox-lbl">💡 Concept</div>
+    <p>Signal for seg tree: "offline queries sorted by endpoint" + "range query on a changing structure". Coordinate compress large values [−10⁹, 10⁹] → [0, N]. The Skyline and Rectangle Area II both use a sweep line + seg tree as a 1D range max/sum structure — classic interview combo.</p>
+  </div>
+  <div class="plist">
+    <div class="pcard" data-d="h" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-14</div>
+      <div class="pmain"><div class="pname">The Skyline Problem ★ Classic</div><div class="ptags"><span class="ptag">sweep-line</span><span class="ptag">coord-compress</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/the-skyline-problem/" target="_blank">LC #218</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/the-skyline-problem-1587115621/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-15</div>
+      <div class="pmain"><div class="pname">Rectangle Area II — Union of Rectangles</div><div class="ptags"><span class="ptag">sweep-line</span><span class="ptag">lazy-prop</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/rectangle-area-ii/" target="_blank">LC #850</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/area-of-union-of-rectangles3822/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-16</div>
+      <div class="pmain"><div class="pname">Longest Increasing Subsequence II</div><div class="ptags"><span class="ptag">LIS-II</span><span class="ptag">seg-range-max</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/longest-increasing-subsequence-ii/" target="_blank">LC #2407</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/longest-increasing-subsequence-1587115620/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="seg">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">ST-17</div>
+      <div class="pmain"><div class="pname">Count of Range Sum</div><div class="ptags"><span class="ptag">prefix-sum</span><span class="ptag">coord-compress</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/count-of-range-sum/" target="_blank">LC #327</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/count-of-range-sum/1" target="_blank">GFG</a></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════ FENWICK TREE ════════ -->
+<div class="sec-head" data-topic="bit">
+  <div class="sec-icon">🌿</div>
+  <div class="sec-txt">
+    <h2>Fenwick Tree (BIT)</h2>
+    <p>Simpler than seg tree, same O(log N). Uses the lowbit trick: <code>i &amp; (−i)</code>. Ideal for prefix sum + point update. 10-line template, unbeatable constant factor.</p>
+  </div>
+  <div class="sec-badge"><div class="bn">13</div><div class="bs">problems</div></div>
+</div>
+
+
+<!-- ── BIT PHASE 1 ── -->
+<div class="phase" id="bit1" data-topic="bit">
+  <div class="ph">
+    <div class="ph-num">B1</div>
+    <div class="ph-info">
+      <div class="ph-lvl">🟢 Beginner <span class="time-badge">⏱ Hour 4 — last 30 min</span></div>
+      <h3>The Lowbit Trick — Core Template</h3>
+      <p class="ph-desc">update propagates by <code>i += i&amp;(−i)</code>. query traverses by <code>i −= i&amp;(−i)</code>. Range [l,r] = query(r) − query(l−1). Memorize these 10 lines completely.</p>
+      <div class="ph-chips"><span class="pchip">i &amp; (-i)</span><span class="pchip">O(log N) update+query</span><span class="pchip">Half the code of seg tree</span></div>
+    </div>
+    <div class="ph-cnt">4 problems · ~35 min</div>
+  </div>
+  <div class="cbox">
+    <div class="cbox-lbl">💡 Concept</div>
+    <p>BIT[i] stores the sum of the last <code>i&amp;(−i)</code> elements. BIT[6] = binary <code>110</code>, last bit = 2, so BIT[6] covers 2 elements. update adds to <code>i</code> then jumps to parent via <code>i += i&amp;(−i)</code>. query sums prefixes by stripping the last set bit. The beauty: this traversal is naturally O(log N).</p>
+  </div>
+  <div class="plist">
+    <div class="pcard" data-d="e" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-01</div>
+      <div class="pmain"><div class="pname">BIT — Point Update &amp; Prefix Sum ★ Start Here</div><div class="ptags"><span class="ptag">BIT-core</span><span class="ptag">template</span></div></div>
+      <span class="dpill de">Easy</span><div class="plnks"><a class="pl gf" href="https://www.geeksforgeeks.org/problems/binary-indexed-tree-or-fenwick-tree/1" target="_blank">GFG</a><a class="pl gf" href="https://www.geeksforgeeks.org/dsa/binary-indexed-tree-or-fenwick-tree-2/" target="_blank">Article</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-02</div>
+      <div class="pmain"><div class="pname">Range Sum Query — Mutable (BIT approach)</div><div class="ptags"><span class="ptag">prefix-sum</span><span class="ptag">BIT</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/range-sum-query-mutable/" target="_blank">LC #307</a><a class="pl gf" href="https://www.geeksforgeeks.org/problems/range-sum-queries-with-point-update/0" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-03</div>
+      <div class="pmain"><div class="pname">Count Inversions (BIT approach)</div><div class="ptags"><span class="ptag">inversions</span><span class="ptag">classic-BIT</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl gf" href="https://www.geeksforgeeks.org/problems/inversion-of-array-1587115620/1" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-04</div>
+      <div class="pmain"><div class="pname">Longest Increasing Subsequence — BIT O(N log N)</div><div class="ptags"><span class="ptag">LIS</span><span class="ptag">coord-compress</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank">LC #300</a></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── BIT PHASE 2 ── -->
+<div class="phase" id="bit2" data-topic="bit">
+  <div class="ph">
+    <div class="ph-num">B2</div>
+    <div class="ph-info">
+      <div class="ph-lvl">🟡 Intermediate <span class="time-badge">⏱ Hour 5</span></div>
+      <h3>Value-Indexed BIT + Coordinate Compression</h3>
+      <p class="ph-desc">Compress values into [1..N]. BIT indexed by value. <code>query(x)</code> = "how many elements ≤ x seen so far". Solves most Hard counting problems in one pattern.</p>
+      <div class="ph-chips"><span class="pchip">Right-to-left sweep</span><span class="pchip">Value-indexed BIT</span><span class="pchip">Counting pairs</span></div>
+    </div>
+    <div class="ph-cnt">4 problems · ~55 min</div>
+  </div>
+  <div class="cbox">
+    <div class="cbox-lbl">💡 Concept</div>
+    <p>Master pattern: process elements right-to-left. For each <code>a[i]</code>, query BIT for count in [1, a[i]−1] = smaller elements to its right. Then insert <code>a[i]</code>. This single loop solves inversions, reverse pairs, and "count smaller" all in O(N log N). LC #315 and #493 are the canonical interview versions of this pattern.</p>
+  </div>
+  <div class="plist">
+    <div class="pcard" data-d="m" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-05</div>
+      <div class="pmain"><div class="pname">Global and Local Inversions</div><div class="ptags"><span class="ptag">inversions</span><span class="ptag">BIT</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/global-and-local-inversions/" target="_blank">LC #775</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-06</div>
+      <div class="pmain"><div class="pname">Count of Smaller Numbers After Self ★ Interview Gold</div><div class="ptags"><span class="ptag">coord-compress</span><span class="ptag">BIT</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/count-of-smaller-numbers-after-self/" target="_blank">LC #315</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-07</div>
+      <div class="pmain"><div class="pname">Reverse Pairs ★ Interview Gold</div><div class="ptags"><span class="ptag">counting-pairs</span><span class="ptag">BIT</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/reverse-pairs/" target="_blank">LC #493</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-08</div>
+      <div class="pmain"><div class="pname">Create Sorted Array Through Instructions</div><div class="ptags"><span class="ptag">BIT</span><span class="ptag">cost-count</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/create-sorted-array-through-instructions/" target="_blank">LC #1649</a></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── BIT PHASE 3 ── -->
+<div class="phase" id="bit3" data-topic="bit">
+  <div class="ph">
+    <div class="ph-num">B3</div>
+    <div class="ph-info">
+      <div class="ph-lvl">🔴 Advanced <span class="time-badge">⏱ Hour 6</span></div>
+      <h3>Range Updates, 2D BIT + Expert Patterns</h3>
+      <p class="ph-desc">Range add using two BITs (dual BIT). 2D Fenwick for matrix queries. BIT walking for k-th element in O(log N). These are the techniques that separate good from great.</p>
+      <div class="ph-chips"><span class="pchip">Dual BIT</span><span class="pchip">2D Fenwick</span><span class="pchip">BIT walking O(log N)</span></div>
+    </div>
+    <div class="ph-cnt">5 problems · ~50 min</div>
+  </div>
+  <div class="cbox">
+    <div class="cbox-lbl">💡 Concept</div>
+    <p>BIT walking for k-th element in O(log N): start <code>pos = 0</code>. For each bit from high to low — if <code>BIT[pos+bit] &lt; k</code>, then <code>pos += bit</code> and <code>k -= BIT[pos]</code>. After the loop, <code>pos+1</code> is the answer. Beats binary-search + query (O(log²N)) and is the cleanest advanced BIT trick.</p>
+  </div>
+  <div class="plist">
+    <div class="pcard" data-d="m" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-09</div>
+      <div class="pmain"><div class="pname">Range Update Point Query — BIT Difference Trick</div><div class="ptags"><span class="ptag">range-update</span><span class="ptag">diff-BIT</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl gf" href="https://www.geeksforgeeks.org/problems/range-update-point-query/1" target="_blank">GFG</a><a class="pl gf" href="https://www.geeksforgeeks.org/dsa/binary-indexed-tree-range-update-range-queries/" target="_blank">Article</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-10</div>
+      <div class="pmain"><div class="pname">Matrix Block Sum (2D BIT)</div><div class="ptags"><span class="ptag">2D-BIT</span><span class="ptag">matrix</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/matrix-block-sum/" target="_blank">LC #1314</a><a class="pl gf" href="https://www.geeksforgeeks.org/dsa/two-dimensional-binary-indexed-tree-or-fenwick-tree/" target="_blank">GFG</a></div>
+    </div>
+    <div class="pcard" data-d="m" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-11</div>
+      <div class="pmain"><div class="pname">Count Rectangles Containing Each Point</div><div class="ptags"><span class="ptag">2D-BIT</span><span class="ptag">sweep</span></div></div>
+      <span class="dpill dm">Medium</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/count-number-of-rectangles-containing-each-point/" target="_blank">LC #2250</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-12</div>
+      <div class="pmain"><div class="pname">K-th Smallest Element — BIT Walking O(log N)</div><div class="ptags"><span class="ptag">k-th-order</span><span class="ptag">BIT-walk</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl gf" href="https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1" target="_blank">GFG</a><a class="pl gf" href="https://www.geeksforgeeks.org/dsa/find-the-k-th-element-using-bit/" target="_blank">Article</a></div>
+    </div>
+    <div class="pcard" data-d="h" data-t="bit">
+      <div class="cb" onclick="tick(this)"></div><div class="pid">BIT-13</div>
+      <div class="pmain"><div class="pname">Longest Increasing Subsequence II (BIT on values)</div><div class="ptags"><span class="ptag">LIS-II</span><span class="ptag">BIT-max</span></div></div>
+      <span class="dpill dh">Hard</span><div class="plnks"><a class="pl lc" href="https://leetcode.com/problems/longest-increasing-subsequence-ii/" target="_blank">LC #2407</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="endspc"></div>
+</main>
+
+<div class="toast" id="toast">✓ Saved</div>
+
+<!-- BOTTOM BAR -->
+<div class="botbar">
+  <span class="bb-lbl">Solved</span>
+  <span class="bb-cnt" id="bbcnt">0 <span>/ 30</span></span>
+  <div class="bb-track"><div class="bb-fill" id="bbfill"></div></div>
+  <span class="bb-pct" id="bbpct">0%</span>
+</div>
+
+<script>
+const TOTAL = 30;
+const STORAGE_KEY = 'dsa_sprint_progress';
+
+// ── SAVE & LOAD ──
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg || '✓ Saved';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+function saveProgress() {
+  const solved = {};
+  document.querySelectorAll('.pcard').forEach(card => {
+    const id = card.querySelector('.pid').textContent.trim();
+    solved[id] = card.querySelector('.cb').classList.contains('done');
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(solved));
+  showToast('✓ Progress saved');
+}
+
+function loadProgress() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    document.querySelectorAll('.pcard').forEach(card => {
+      const id = card.querySelector('.pid').textContent.trim();
+      if (saved[id]) {
+        card.querySelector('.cb').classList.add('done');
+        card.classList.add('solved');
+        card.querySelector('.pname').style.textDecoration = 'line-through';
+      }
+    });
+    sync();
+  } catch(e) {
+    // corrupt data — reset silently
+    localStorage.removeItem(STORAGE_KEY);
+  }
+}
+
+// ── TICK ──
+function tick(el) {
+  el.classList.toggle('done');
+  el.closest('.pcard').classList.toggle('solved');
+  saveProgress();
+  sync();
+}
+
+// ── SYNC UI ──
+function sync() {
+  const done = document.querySelectorAll('.cb.done').length;
+  const pct = Math.round(done / TOTAL * 100);
+  document.getElementById('bbcnt').innerHTML = done + ' <span>/ ' + TOTAL + '</span>';
+  document.getElementById('bbfill').style.width = pct + '%';
+  document.getElementById('bbpct').textContent = pct + '%';
+  document.getElementById('tbar-fill').style.width = pct + '%';
+  document.getElementById('sbfill').style.width = pct + '%';
+  document.getElementById('sbval').textContent = done + ' / ' + TOTAL;
+
+  // Celebration at 100%
+  if (done === TOTAL) {
+    document.getElementById('bbcnt').innerHTML = '🏆 <span style="color:rgba(255,255,255,.5)">All done!</span>';
+  }
+}
+
+// ── FILTERS ──
+function resetAll() {
+  document.querySelectorAll('.pcard').forEach(c => c.classList.remove('hidden'));
+  document.querySelectorAll('.phase, .sec-head').forEach(b => b.classList.remove('hidden'));
+}
+function setTab(el) {
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+}
+function fAll(el)   { setTab(el); resetAll(); }
+function fTopic(t, el) {
+  setTab(el); resetAll();
+  document.querySelectorAll('.phase, .sec-head').forEach(b => {
+    if (b.dataset.topic && b.dataset.topic !== t) b.classList.add('hidden');
+  });
+}
+function fDiff(d, el) {
+  setTab(el); resetAll();
+  document.querySelectorAll('.pcard').forEach(c => {
+    if (c.dataset.d !== d) c.classList.add('hidden');
+  });
+}
+function fUnsolved(el) {
+  setTab(el); resetAll();
+  document.querySelectorAll('.pcard').forEach(c => {
+    if (c.querySelector('.cb.done')) c.classList.add('hidden');
+  });
+}
+
+// ── RESET ALL PROGRESS ──
+function resetProgress() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  document.querySelectorAll('.cb').forEach(cb => cb.classList.remove('done'));
+  document.querySelectorAll('.pcard').forEach(c => c.classList.remove('solved'));
+  sync();
+  showToast('🗑 Progress cleared');
+}
+
+// ── THEME ──
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle('dark');
+  document.getElementById('ticon').textContent = isDark ? '☀️' : '🌙';
+  document.getElementById('tlabel').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  localStorage.setItem('dsaTheme', isDark ? 'dark' : 'light');
+}
+(function initTheme() {
+  const saved = localStorage.getItem('dsaTheme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) {
+    document.documentElement.classList.add('dark');
+    document.getElementById('ticon').textContent = '☀️';
+    document.getElementById('tlabel').textContent = 'Light Mode';
+  }
+})();
+
+// ── SCROLL SPY ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.nav-a').forEach(a => a.classList.remove('on'));
+      const a = document.querySelector(`.nav-a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('on');
+    }
+  });
+}, { threshold: 0.25 });
+document.querySelectorAll('.phase[id], #plan').forEach(el => io.observe(el));
+
+// ── INIT: load saved progress on page load ──
+document.addEventListener('DOMContentLoaded', loadProgress);
+</script>
+</body>
+</html>
