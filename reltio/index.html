@@ -117,8 +117,9 @@
   /* LAYOUT */
   .layout {
     display: grid;
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 260px minmax(0, 1fr); /* minmax(0,1fr) prevents grid blowout */
     min-height: calc(100vh - 200px);
+    align-items: start;
   }
 
   /* SIDEBAR */
@@ -130,6 +131,7 @@
     top: 0;
     height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
   }
   .sidebar::-webkit-scrollbar { width: 4px; }
   .sidebar::-webkit-scrollbar-track { background: transparent; }
@@ -176,12 +178,18 @@
   /* MAIN CONTENT */
   .main {
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
+    min-width: 0; /* critical: prevents grid column from overflowing */
+    width: 100%;
   }
   .section {
     display: none;
     padding: 40px;
     animation: fadeIn 0.3s ease;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   .section.active { display: block; }
 
@@ -246,6 +254,8 @@
     margin-bottom: 16px;
     overflow: hidden;
     transition: border-color 0.2s;
+    min-width: 0;
+    max-width: 100%;
   }
   .qa-card:hover { border-color: rgba(0,229,255,0.3); }
   .qa-question {
@@ -272,6 +282,8 @@
     color: var(--text);
     flex: 1;
     line-height: 1.5;
+    min-width: 0;        /* allows text to shrink and wrap inside flex */
+    word-wrap: break-word;
   }
   .qa-chevron {
     color: var(--muted);
@@ -285,6 +297,8 @@
     display: none;
     padding: 0 20px 20px 20px;
     border-top: 1px solid var(--border);
+    min-width: 0;
+    overflow: hidden;
   }
   .qa-card.open .qa-answer { display: block; }
 
@@ -369,6 +383,8 @@
     border-radius: 8px;
     margin: 14px 0;
     overflow: hidden;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   .code-header {
     background: var(--surface2);
@@ -399,10 +415,15 @@
   pre {
     padding: 18px;
     overflow-x: auto;
+    overflow-y: hidden;
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     line-height: 1.7;
     color: #c9d1d9;
+    white-space: pre;
+    word-break: normal;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   .kw { color: #ff7b72; }
   .fn { color: #d2a8ff; }
@@ -478,6 +499,8 @@
     border-collapse: collapse;
     margin: 14px 0;
     font-size: 13px;
+    table-layout: fixed;  /* prevents table from exceeding container */
+    word-wrap: break-word;
   }
   .concept-table th {
     background: var(--surface2);
@@ -502,8 +525,9 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     color: var(--accent);
-    white-space: nowrap;
+    white-space: normal;  /* allow wrapping — nowrap was breaking desktop layout */
     font-weight: 500;
+    width: 28%;           /* fixed first column width so table stays stable */
   }
 
   /* VISUAL ASCII */
@@ -511,13 +535,20 @@
     background: #0d1117;
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 20px;
-    font-family: 'JetBrains Mono', monospace;
+    padding: 18px 20px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
     font-size: 12px;
-    line-height: 1.8;
+    line-height: 1.65;
     color: #6ee7b7;
     margin: 14px 0;
     overflow-x: auto;
+    overflow-y: hidden;
+    white-space: pre;
+    tab-size: 2;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* TOPIC GRID */
@@ -695,14 +726,50 @@
   .main::-webkit-scrollbar-track { background: transparent; }
   .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-  /* MOBILE */
-  @media (max-width: 768px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
-    .section { padding: 24px 20px; }
-    .hero { padding: 40px 20px 30px; }
-    .star-grid { grid-template-columns: 1fr 1fr; }
-    .complexity-grid { grid-template-columns: 1fr; }
+  /* TABLET & MOBILE */
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+    .sidebar {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .section {
+      padding: 24px 20px;
+    }
+    .hero {
+      padding: 40px 20px 30px;
+    }
+    .star-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .complexity-grid {
+      grid-template-columns: 1fr;
+    }
+    .topic-grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    pre {
+      font-size: 12px;
+    }
+    .ascii-diagram {
+      font-size: 11px;
+    }
+    .section-title {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .star-grid { grid-template-columns: 1fr; }
+    .section { padding: 20px 16px; }
+    pre { font-size: 11px; }
+    .ascii-diagram { font-size: 10px; padding: 12px; }
+    .hero h1 { font-size: 26px; }
   }
 
   .highlight { color: var(--accent); font-weight: 700; }
@@ -957,15 +1024,21 @@ a.<span class="fn">equals</span>(c)  <span class="cm">// TRUE  — same content 
               HashMap is like a parking lot with numbered slots. When you park (put a key), Java runs hashCode() on your key to get a slot number. When you want your car back (get), it runs hashCode() again, goes to that slot, and checks if the car is yours using equals().<br><br>
               <strong>Collision</strong> = Two different keys get the same slot number. Java handles this by chaining — each slot is a linked list of entries. Java 8+ converts this list to a TreeMap when it gets more than 8 entries (so lookup stays O(log n) not O(n)).
             </div>
-            <div class="ascii-diagram">Slot 0: [ ]
-Slot 1: [ "apple"→5 ] → [ "grape"→8 ]   ← collision! same hash
-Slot 2: [ "banana"→3 ]
-Slot 3: [ ]
-...
-Slot N: [ "mango"→1 ]
-
-Time: O(1) average for get/put
-Worst case (all collisions): O(n) → that's why hashCode() matters!</div>
+            <div class="ascii-diagram">  HashMap Internal Structure (array of buckets)
+  ┌───────┬──────────────────────────────────────────┐
+  │Slot 0 │  [ empty ]                               │
+  ├───────┼──────────────────────────────────────────┤
+  │Slot 1 │  ["apple"→5] ──▶ ["grape"→8]            │
+  │       │   ↑ collision! both hash to slot 1       │
+  ├───────┼──────────────────────────────────────────┤
+  │Slot 2 │  ["banana"→3]                            │
+  ├───────┼──────────────────────────────────────────┤
+  │Slot 3 │  [ empty ]                               │
+  ├───────┼──────────────────────────────────────────┤
+  │Slot N │  ["mango"→1]                             │
+  └───────┴──────────────────────────────────────────┘
+  Average: O(1) get/put  │  Worst (all collisions): O(n)
+  Java 8+: bucket → TreeMap when >8 entries → O(log n)</div>
             <div class="hint">Common follow-up: "What's the default load factor?" 0.75 — when HashMap is 75% full, it resizes to double (rehashing). This is why initial capacity matters for performance.</div>
           </div>
         </div>
@@ -1014,16 +1087,26 @@ Worst case (all collisions): O(n) → that's why hashCode() matters!</div>
               <strong>Stack</strong> = A stack of plates. Every method call adds a plate (frame). Local variables live in that plate. When the method returns, the plate is removed. Each thread has its own stack. If you keep calling methods forever (infinite recursion), the stack overflows — all the plates fall. → StackOverflowError.<br><br>
               <strong>Heap</strong> = A big warehouse. ALL objects live here. Threads share this warehouse. Garbage Collector cleans up objects nobody is pointing to anymore. When warehouse is full → OutOfMemoryError.
             </div>
-            <div class="ascii-diagram">THREAD 1 STACK         SHARED HEAP
-┌──────────────┐       ┌──────────────────────────┐
-│ main()       │       │ Young Gen (new objects)   │
-│  int x = 5  │──────▶│ String obj "hello"       │
-│  obj ref ──────────▶│ MyClass instance         │
-├──────────────┤       │                          │
-│ methodA()    │       │ Old Gen (surviving objs) │
-│  int y = 10  │       └──────────────────────────┘
-└──────────────┘
-Stack = local vars + refs    Heap = actual objects</div>
+            <div class="ascii-diagram">┌─────────────────────────────────────────────────────┐
+│                  JAVA MEMORY MODEL                  │
+├───────────────────────┬─────────────────────────────┤
+│   THREAD 1 STACK      │       SHARED HEAP           │
+│   (per-thread)        │   (all threads share this)  │
+├───────────────────────┼─────────────────────────────┤
+│  ┌─────────────────┐  │  ┌─────────────────────┐   │
+│  │  main()  frame  │  │  │  Young Generation   │   │
+│  │  int x = 5      │──┼─▶│  String "hello"     │   │
+│  │  ref → obj      │──┼─▶│  MyClass instance   │   │
+│  └─────────────────┘  │  ├─────────────────────┤   │
+│  ┌─────────────────┐  │  │  Old Generation     │   │
+│  │ methodA() frame │  │  │  (long-lived objs)  │   │
+│  │  int y = 10     │  │  └─────────────────────┘   │
+│  └─────────────────┘  │                             │
+├───────────────────────┼─────────────────────────────┤
+│ Each thread gets its  │  GC cleans up unreferenced  │
+│ OWN stack (LIFO).     │  objects automatically.     │
+│ StackOverflowError    │  OutOfMemoryError when full │
+└───────────────────────┴─────────────────────────────┘</div>
           </div>
         </div>
       </div>
@@ -1098,14 +1181,25 @@ Stack = local vars + refs    Heap = actual objects</div>
             <div class="analogy">
               Imagine shining a light straight down on your binary tree from above. Each node casts a shadow on a number line. Root is at position 0. Going left = -1. Going right = +1. Collect all nodes that land on the same vertical line, then print each line from left to right.
             </div>
-            <div class="ascii-diagram">        1          col: 0
-       / \
-      2   3        2 → col:-1, 3 → col:+1
-     / \   \
-    4   5   6     4→col:-2, 5→col:0, 6→col:+2
+            <div class="ascii-diagram">  Binary Tree with column indices:
 
-Vertical Output: [4], [2], [1,5], [3], [6]
-(nodes at same col sorted by row, then value)</div>
+          1           ← col: 0
+         / \
+        2   3         ← col: -1, +1
+       / \   \
+      4   5   6       ← col: -2,  0, +2
+
+  Vertical columns (left to right):
+  ┌───────┬──────────────────────────────────────┐
+  │  col  │  nodes (sorted by row, then value)   │
+  ├───────┼──────────────────────────────────────┤
+  │  -2   │  [4]                                 │
+  │  -1   │  [2]                                 │
+  │   0   │  [1, 5]   ← same col, sorted by row  │
+  │  +1   │  [3]                                 │
+  │  +2   │  [6]                                 │
+  └───────┴──────────────────────────────────────┘
+  Output: [[4], [2], [1,5], [3], [6]]</div>
             <div class="answer-text" style="margin-top:12px;">
               <strong>Algorithm:</strong> BFS with a queue storing (node, row, col). Root = (0,0). Left child = col-1, Right child = col+1.
             </div>
@@ -1297,13 +1391,22 @@ Vertical Output: [4], [2], [1,5], [3], [6]
             <div class="analogy">
               To reach step N, you either came from step N-1 (took 1 step) or from step N-2 (took 2 steps). So ways(N) = ways(N-1) + ways(N-2). This is exactly Fibonacci! Base cases: 1 way to reach step 1, 2 ways to reach step 2 (1+1 or 2).
             </div>
-            <div class="ascii-diagram">Steps: 1→1  2→2  3→3  4→5  5→8  6→13
-Pattern: ways(n) = ways(n-1) + ways(n-2)
+            <div class="ascii-diagram">  Staircase DP — Recurrence: ways(n) = ways(n-1) + ways(n-2)
 
-Trace for n=4:
-ways(1)=1, ways(2)=2
-ways(3)=ways(2)+ways(1)=3
-ways(4)=ways(3)+ways(2)=5  ✓</div>
+  ┌──────┬───┬───┬───┬───┬───┬────┐
+  │  n   │ 1 │ 2 │ 3 │ 4 │ 5 │ 6  │
+  ├──────┼───┼───┼───┼───┼───┼────┤
+  │ ways │ 1 │ 2 │ 3 │ 5 │ 8 │ 13 │
+  └──────┴───┴───┴───┴───┴───┴────┘
+
+  Trace for n = 4:
+    ways(1) = 1
+    ways(2) = 2
+    ways(3) = ways(2) + ways(1) = 2 + 1 = 3
+    ways(4) = ways(3) + ways(2) = 3 + 2 = 5  ✓
+
+  The 5 paths to step 4:
+    1+1+1+1  |  1+1+2  |  1+2+1  |  2+1+1  |  2+2</div>
             <div class="code-block">
               <div class="code-header"><span class="code-lang">JAVA</span><button class="copy-btn" onclick="copyCode(this)">COPY</button></div>
               <pre><span class="kw">class</span> <span class="cls">Solution</span> {
@@ -1817,16 +1920,23 @@ ways(4)=ways(3)+ways(2)=5  ✓</div>
         <div class="qa-answer">
           <div class="diff medium">Medium</div>
           <div class="answer-section">
-            <div class="ascii-diagram">Table A: Orders      Table B: Customers
-id | cust_id        id | name
-1  | 101            101| Alice
-2  | 102            102| Bob
-3  | 999            (no cust 999)
+            <div class="ascii-diagram">  Table A: Orders          Table B: Customers
+  ┌────┬─────────┐          ┌─────┬───────┐
+  │ id │ cust_id │          │ id  │ name  │
+  ├────┼─────────┤          ├─────┼───────┤
+  │  1 │   101   │          │ 101 │ Alice │
+  │  2 │   102   │          │ 102 │ Bob   │
+  │  3 │   999   │          └─────┴───────┘
+  └────┴─────────┘          (no customer 999 exists)
 
-INNER JOIN: only matching rows → Orders 1,2 (Alice, Bob)
-LEFT JOIN:  all A + matching B → Orders 1,2,3 (Alice, Bob, NULL)
-RIGHT JOIN: all B + matching A → Alice, Bob (no unmatched B here)
-FULL OUTER: ALL rows from both → Alice, Bob, + Order 3 (NULL)</div>
+  ┌────────────┬────────────────────────────────────────────┐
+  │ JOIN Type  │ Result                                     │
+  ├────────────┼────────────────────────────────────────────┤
+  │ INNER      │ Orders 1,2 only  (Alice, Bob)              │
+  │ LEFT       │ Orders 1,2,3     (Alice, Bob, NULL)        │
+  │ RIGHT      │ Alice, Bob       (no unmatched B here)     │
+  │ FULL OUTER │ All rows from A and B, NULLs where no match│
+  └────────────┴────────────────────────────────────────────┘</div>
             <div class="code-block">
               <div class="code-header"><span class="code-lang">SQL</span><button class="copy-btn" onclick="copyCode(this)">COPY</button></div>
               <pre><span class="cm">-- Find customers with NO orders (LEFT JOIN trick)</span>
@@ -1899,6 +2009,25 @@ FULL OUTER: ALL rows from both → Alice, Bob, + Order 3 (NULL)</div>
               3. <strong>No Preemption</strong> — Resources cannot be forcibly taken away; a thread must release voluntarily.<br>
               4. <strong>Circular Wait</strong> — Thread A waits for B, B waits for C, C waits for A — a circle of waiting.
             </div>
+            <div class="ascii-diagram">  Circular Wait (the deadlock condition visualised):
+
+  ┌──────────┐   holds Lock1    ┌──────────┐
+  │ Thread A │ ────────────────▶│  Lock 1  │
+  └────┬─────┘                  └──────────┘
+       │  wants Lock2                 ▲
+       │                             │ holds Lock2
+       ▼                             │
+  ┌──────────┐   wants Lock1   ┌──────────┐
+  │  Lock 2  │◀──────────────── │ Thread B │
+  └──────────┘                  └──────────┘
+
+  A waits for B to release Lock2.
+  B waits for A to release Lock1.
+  Neither ever moves → DEADLOCK.
+
+  Fix: always acquire locks in the SAME order in ALL threads.
+       Thread A: lock1 → lock2
+       Thread B: lock1 → lock2  ✓  (no circular wait possible)</div>
             <div class="analogy">
               Prevention strategies:<br>
               • Break <strong>Hold &amp; Wait</strong>: require threads to request ALL resources at once before starting.<br>
@@ -2250,11 +2379,33 @@ counter.<span class="fn">incrementAndGet</span>(); <span class="cm">// ✅ Threa
               <li><strong>Scalability</strong> — Cache popular codes in Redis (reads are 99% of traffic). CDN caches redirect responses globally. Multiple app server replicas behind load balancer. DB with read replicas.</li>
               <li><strong>Redirect Type</strong> — 301 (Permanent): browser caches it, no analytics. 302 (Temporary): always hits your server, you can log every click for analytics. Choose based on requirement.</li>
             </ol>
-            <div class="ascii-diagram">Client → CDN → Load Balancer → [App Server 1]
-                                     → [App Server 2]  →  Redis Cache
-                                     → [App Server 3]  →  MySQL (Primary)
-                                                               ↓
-                                                       MySQL Read Replica x2</div>
+            <div class="ascii-diagram">  URL Shortener — Scalable Architecture
+
+  ┌─────────┐    ┌─────┐    ┌──────────────┐
+  │ Client  │───▶│ CDN │───▶│ Load Balancer│
+  └─────────┘    └─────┘    └──────┬───────┘
+                                   │
+               ┌───────────────────┼───────────────────┐
+               ▼                   ▼                   ▼
+        ┌────────────┐      ┌────────────┐      ┌────────────┐
+        │ App Server │      │ App Server │      │ App Server │
+        │     1      │      │     2      │      │     3      │
+        └─────┬──────┘      └─────┬──────┘      └─────┬──────┘
+              │                   │                   │
+              └───────────────────┼───────────────────┘
+                                  │
+                   ┌──────────────┼──────────────┐
+                   ▼                             ▼
+           ┌──────────────┐             ┌──────────────┐
+           │  Redis Cache │             │ MySQL Primary│
+           │  (hot codes) │             │  (persist)   │
+           └──────────────┘             └──────┬───────┘
+                                               │
+                                    ┌──────────┴──────────┐
+                                    ▼                     ▼
+                             ┌────────────┐        ┌────────────┐
+                             │Read Replica│        │Read Replica│
+                             └────────────┘        └────────────┘</div>
           </div>
         </div>
       </div>
