@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +22,44 @@
     --easy: #10b981;
     --medium: #f59e0b;
     --hard: #ef4444;
+    --code-bg: #0d1117;
+    --code-text: #c9d1d9;
+    --ascii-text: #6ee7b7;
+    --hero-grad-a: #0a0a0f;
+    --hero-grad-b: #0d0d1a;
+  }
+
+  /* ── LIGHT MODE: only variables change, zero duplicate CSS ── */
+  html[data-theme="light"] {
+    --bg: #f4f6fa;
+    --surface: #ffffff;
+    --surface2: #eef0f6;
+    --border: #d1d5e0;
+    --accent: #0070c0;
+    --accent2: #6d28d9;
+    --accent3: #b45309;
+    --green: #047857;
+    --red: #dc2626;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --easy: #047857;
+    --medium: #b45309;
+    --hard: #dc2626;
+    --code-bg: #1e2030;
+    --code-text: #c9d1d9;
+    --ascii-text: #0d6e5c;
+    --hero-grad-a: #e8edf8;
+    --hero-grad-b: #eef1fb;
+  }
+
+  /* Smooth transition when switching themes */
+  *, *::before, *::after {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  /* But don't animate transforms/opacity (would slow animations) */
+  .qa-chevron, .section, .nav-item, .qa-card {
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+                color 0.2s ease, transform 0.2s ease, opacity 0.3s ease;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,7 +74,7 @@
 
   /* HERO */
   .hero {
-    background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0a0a0f 100%);
+    background: linear-gradient(135deg, var(--hero-grad-a) 0%, var(--hero-grad-b) 50%, var(--hero-grad-a) 100%);
     border-bottom: 1px solid var(--border);
     padding: 60px 40px 50px;
     position: relative;
@@ -80,7 +118,7 @@
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 16px;
-    background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -378,7 +416,7 @@
 
   /* CODE BLOCKS */
   .code-block {
-    background: #0d1117;
+    background: var(--code-bg);
     border: 1px solid var(--border);
     border-radius: 8px;
     margin: 14px 0;
@@ -419,7 +457,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     line-height: 1.7;
-    color: #c9d1d9;
+    color: var(--code-text);
     white-space: pre;
     word-break: normal;
     max-width: 100%;
@@ -532,14 +570,14 @@
 
   /* VISUAL ASCII */
   .ascii-diagram {
-    background: #0d1117;
+    background: var(--code-bg);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 18px 20px;
     font-family: 'JetBrains Mono', 'Courier New', monospace;
     font-size: 12px;
     line-height: 1.65;
-    color: #6ee7b7;
+    color: var(--ascii-text);
     margin: 14px 0;
     overflow-x: auto;
     overflow-y: hidden;
@@ -788,6 +826,26 @@
     <div class="stat"><span class="stat-num">60+</span><span class="stat-label">Q&A Cards</span></div>
     <div class="stat"><span class="stat-num">20+</span><span class="stat-label">Code Solutions</span></div>
     <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Offline Ready</span></div>
+    <div class="stat" style="margin-left:auto;">
+      <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode" style="
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      ">
+        <span id="themeIcon">☀️</span>
+        <span id="themeLabel">LIGHT MODE</span>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -2707,22 +2765,54 @@ EXPIRE user:123:tokens 60   (window = 1 minute)</span></pre>
 </div><!-- end layout -->
 
 <script>
+// ── THEME TOGGLE ──────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const isLight = html.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateToggleUI(next);
+}
+
+function updateToggleUI(theme) {
+  const icon  = document.getElementById('themeIcon');
+  const label = document.getElementById('themeLabel');
+  if (theme === 'light') {
+    icon.textContent  = '🌙';
+    label.textContent = 'DARK MODE';
+  } else {
+    icon.textContent  = '☀️';
+    label.textContent = 'LIGHT MODE';
+  }
+}
+
+// Apply saved preference immediately (before paint to avoid flash)
+(function() {
+  const saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  // updateToggleUI runs after DOM is ready (button exists)
+  document.addEventListener('DOMContentLoaded', () => updateToggleUI(saved));
+})();
+
+// ── SECTION NAV ───────────────────────────────────────────────
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   event.currentTarget.classList.add('active');
-  document.getElementById('mainContent').scrollTop = 0;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ── Q&A ACCORDION ─────────────────────────────────────────────
 function toggleQA(el) {
   const card = el.parentElement;
   const wasOpen = card.classList.contains('open');
-  // Close all
   document.querySelectorAll('.qa-card').forEach(c => c.classList.remove('open'));
   if (!wasOpen) card.classList.add('open');
 }
 
+// ── COPY CODE ─────────────────────────────────────────────────
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('pre');
   const text = pre.innerText;
@@ -2738,7 +2828,7 @@ function copyCode(btn) {
   });
 }
 
-// Save checkbox state
+// ── CHECKLIST PERSISTENCE ─────────────────────────────────────
 document.querySelectorAll('#globalChecklist input').forEach(cb => {
   const saved = localStorage.getItem(cb.id);
   if (saved === 'true') cb.checked = true;
